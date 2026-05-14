@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="OnlineEdu.API/OnlineEdu.API.csproj" />
+  <Project Path="OnlineEdu.Business/OnlineEdu.Business.csproj" />
+  <Project Path="OnlineEdu.DataAccess/OnlineEdu.DataAccess.csproj" />
+  <Project Path="OnlineEdu.DTO/OnlineEdu.DTO.csproj" />
+  <Project Path="OnlineEdu.Entity/OnlineEdu.Entity.csproj" />
+  <Project Path="OnlineEdu.WebUI/OnlineEdu.WebUI.csproj" />
+</Solution>

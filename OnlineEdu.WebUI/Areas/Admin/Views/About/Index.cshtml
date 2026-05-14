@@ -1,0 +1,44 @@
+﻿
+@model List<ResultAboutDto>
+
+@{
+    ViewData["Title"] = "Hakkımda Sayfası";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    int count = 0;
+}
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>resim</th>
+        <th>resim2</th>
+        <th>Açıklama</th>
+        <th>Madde1</th>
+        <th>Madde2</th>
+        <th>Madde3</th>
+        <th>Madde4</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <td><img src ="@item.ImageUrl1" style="height:75px;width:74px" /></td>
+            <td><img src ="@item.ImageUrl2" style="height:75px;width:74px" /></td>
+            <th>@item.Description</th>
+            <th>@item.Item1</th>
+            <th>@item.Item2</th>
+            <th>@item.Item3</th>
+            <th>@item.Item4</th>
+            <td>
+                <a asp-action="DeleteAbout" asp-controller="About" asp-area="Admin" asp-route-id="@item.AboutId" class="btn btn-outline-danger">Sil</a>
+                <a asp-action="UpdateAbout" asp-controller="About" asp-area="Admin" asp-route-id="@item.AboutId" class="btn btn-outline-info">Güncelle</a>
+            <td>
+        </tr>
+    }
+</table>
+<br />
+<a asp-action="CreateAbout" asp-controller="About" asp-area="Admin" class="btn btn-outline-primary">Yeni hakkımda ekle</a>
