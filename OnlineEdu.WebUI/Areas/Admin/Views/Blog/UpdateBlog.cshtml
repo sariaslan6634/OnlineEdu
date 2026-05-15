@@ -1,0 +1,369 @@
+﻿@model UpdateBlogDto
+
+@{
+    ViewData["Title"] = "Blog Güncelleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .section-card {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 18px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .field label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+        }
+
+    .form-control {
+        border: 0.5px solid #dcdcd8;
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-size: 14px;
+        box-shadow: none !important;
+        transition: border-color 0.2s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            border-color: #1a1a1a;
+            outline: none;
+        }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+
+    .char-count {
+        font-size: 12px;
+        color: #a1a19d;
+        text-align: right;
+    }
+
+    /* Custom Select */
+    .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-select {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 0.5px solid #dcdcd8;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 14px;
+        background: #fafafa;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease;
+        user-select: none;
+        box-sizing: border-box;
+    }
+
+        .custom-select:hover {
+            border-color: #b0b0aa;
+            background: #f5f5f4;
+        }
+
+        .custom-select.open {
+            border-color: #1a1a1a;
+            background: #ffffff;
+        }
+
+    .custom-select-arrow {
+        font-size: 13px;
+        color: #999;
+        transition: transform 0.2s ease;
+    }
+
+    .custom-select.open .custom-select-arrow {
+        transform: rotate(180deg);
+    }
+
+    .custom-select-text {
+        color: #a1a19d;
+        font-size: 14px;
+    }
+
+        .custom-select-text.selected {
+            color: #1a1a1a;
+        }
+
+    .custom-select-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border: 0.5px solid #dcdcd8;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        z-index: 100;
+        overflow: hidden;
+    }
+
+        .custom-select-dropdown.open {
+            display: block;
+        }
+
+    .custom-select-option {
+        padding: 11px 14px;
+        font-size: 14px;
+        color: #1a1a1a;
+        cursor: pointer;
+        transition: background 0.15s ease;
+    }
+
+        .custom-select-option:hover {
+            background: #f5f5f4;
+        }
+
+        .custom-select-option.active {
+            background: #f0f0ee;
+            font-weight: 500;
+        }
+
+    /* Banner Preview */
+    .banner-preview {
+        margin-top: 14px;
+        width: 100%;
+        height: 220px;
+        border-radius: 14px;
+        border: 1px dashed #d8d8d5;
+        background: #f8f8f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        color: #a1a19d;
+        overflow: hidden;
+    }
+
+        .banner-preview i {
+            font-size: 28px;
+        }
+
+    /* Footer */
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .btn-save {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .btn-save:hover {
+            opacity: 0.9;
+            color: #fff;
+        }
+
+    .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 0.5px solid #d6d6d2;
+        background: #fff;
+        color: #555;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+        .btn-cancel:hover {
+            background: #f5f5f4;
+            color: #1a1a1a;
+        }
+</style>
+
+<form method="post"
+      asp-action="UpdateBlog"
+      asp-controller="Blog"
+      asp-area="Admin">
+
+    <input type="hidden" asp-for="BlogId" />
+
+    <div class="section-card">
+        <div class="section-label">
+            <i class="bi bi-type"></i>
+            Blog Bilgisi
+        </div>
+
+        <div class="field">
+            <label asp-for="Title">Blog Başlığı</label>
+            <input type="text" asp-for="Title" class="form-control"
+                   placeholder="Blog başlığını giriniz..." />
+        </div>
+
+        <br />
+
+        <div class="field">
+            <label asp-for="BlogCategoryId">Kategori</label>
+            <div class="custom-select-wrapper">
+                <div class="custom-select" id="categorySelect">
+                    <span class="custom-select-text">Kategori seçiniz...</span>
+                    <i class="bi bi-chevron-down custom-select-arrow"></i>
+                </div>
+                <div class="custom-select-dropdown" id="categoryDropdown">
+                    @foreach (var item in ViewBag.categories)
+                    {
+                        <div class="custom-select-option" data-value="@item.Value">@item.Text</div>
+                    }
+                </div>
+                <select asp-for="BlogCategoryId" id="hiddenSelect" style="display:none"
+                        asp-items="@ViewBag.categories"></select>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="field">
+            <label asp-for="Content">Blog İçeriği</label>
+            <textarea asp-for="Content" class="form-control" rows="5"
+                      placeholder="Blog içeriğini giriniz..."
+                      oninput="document.getElementById('charcount').textContent=this.value.length+' karakter'"></textarea>
+            <div class="char-count" id="charcount">0 karakter</div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-label">
+            <i class="bi bi-image"></i>
+            Blog Görseli
+        </div>
+
+        <div class="field">
+            <label asp-for="ImageUrl">Resim URL</label>
+            <input type="text" asp-for="ImageUrl" class="form-control"
+                   placeholder="https://example.com/blog.jpg"
+                   oninput="updateBlogPreview(this.value)" />
+            <div class="banner-preview" id="blogPreview">
+                <i class="bi bi-image"></i>
+                <span>Görsel Önizleme</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <a asp-action="Index"
+           asp-controller="Blog"
+           asp-area="Admin"
+           class="btn-cancel">
+            <i class="bi bi-arrow-left"></i>
+            İptal
+        </a>
+        <button type="submit" class="btn-save">
+            <i class="bi bi-floppy"></i>
+            Güncelle
+        </button>
+    </div>
+
+</form>
+
+<script>
+    const select = document.getElementById('categorySelect');
+    const dropdown = document.getElementById('categoryDropdown');
+    const hiddenSelect = document.getElementById('hiddenSelect');
+    const selectText = select.querySelector('.custom-select-text');
+
+    // Mevcut değer varsa göster
+    if (hiddenSelect.value) {
+        const activeOption = dropdown.querySelector(`[data-value="${hiddenSelect.value}"]`);
+        if (activeOption) {
+            selectText.textContent = activeOption.textContent;
+            selectText.classList.add('selected');
+            activeOption.classList.add('active');
+        }
+    }
+
+    // Textarea karakter sayısı başlangıç
+    const textarea = document.querySelector('textarea');
+    if (textarea && textarea.value) {
+        document.getElementById('charcount').textContent = textarea.value.length + ' karakter';
+    }
+
+    // Dropdown aç/kapat
+    select.addEventListener('click', () => {
+        select.classList.toggle('open');
+        dropdown.classList.toggle('open');
+    });
+
+    // Seçenek tıklama
+    document.querySelectorAll('.custom-select-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            selectText.textContent = option.textContent;
+            selectText.classList.add('selected');
+            hiddenSelect.value = option.dataset.value;
+            select.classList.remove('open');
+            dropdown.classList.remove('open');
+        });
+    });
+
+    // Dışarı tıklayınca kapat
+    document.addEventListener('click', (e) => {
+        if (!select.closest('.custom-select-wrapper').contains(e.target)) {
+            select.classList.remove('open');
+            dropdown.classList.remove('open');
+        }
+    });
+
+    // Görsel önizleme
+    function updateBlogPreview(url) {
+        const preview = document.getElementById("blogPreview");
+        if (url && url.trim() !== "") {
+            preview.innerHTML = `<img src="${url}"
+                style="width:100%; height:220px; object-fit:cover; border-radius:14px;"
+                onerror="this.parentElement.innerHTML='<i class=\'bi bi-image\'></i><span>Görsel yüklenemedi</span>'" />`;
+        } else {
+            preview.innerHTML = `<i class="bi bi-image"></i><span>Görsel Önizleme</span>`;
+        }
+    }
+
+    // Sayfa yüklenince mevcut resmi önizle
+    const imageInput = document.querySelector('input[name="ImageUrl"]');
+    if (imageInput && imageInput.value) {
+        updateBlogPreview(imageInput.value);
+    }
+</script>

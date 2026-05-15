@@ -1,7 +1,7 @@
-﻿@model UpdateAboutDto
+﻿@model CreateBlogCategoryDto
 
 @{
-    ViewData["Title"] = "Hakkımda Güncelle";
+    ViewData["Title"] = "Yeni blog kategori oluşturma sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -38,15 +38,6 @@
         font-weight: 500;
         margin: 0;
         color: #1a1a1a;
-    }
-
-    .update-badge {
-        background: #e6f1fb;
-        border: 0.5px solid #85b7eb;
-        border-radius: 20px;
-        font-size: 12px;
-        color: #185fa5;
-        padding: 2px 10px;
     }
 
     .section-card {
@@ -108,11 +99,40 @@
             line-height: 1.6;
         }
 
+    .char-count {
+        font-size: 11px;
+        color: #b4b2a9;
+        text-align: right;
+        margin-top: 4px;
+    }
+
     .img-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
     }
+
+    .img-preview {
+        margin-top: 6px;
+        height: 56px;
+        border-radius: 8px;
+        border: 0.5px dashed #e0e0de;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9f9f8;
+        color: #b4b2a9;
+        font-size: 12px;
+        gap: 6px;
+        overflow: hidden;
+    }
+
+        .img-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 7px;
+        }
 
     .items-grid {
         display: grid;
@@ -172,11 +192,11 @@
             text-decoration: none;
         }
 
-    .btn-update {
+    .btn-save {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: #185fa5;
+        background: #1a1a1a;
         border: none;
         color: #ffffff;
         border-radius: 8px;
@@ -186,78 +206,44 @@
         cursor: pointer;
     }
 
-        .btn-update:hover {
+        .btn-save:hover {
             opacity: 0.85;
         }
+
+    .validation-message {
+        font-size: 12px;
+        color: #a32d2d;
+        margin-top: 4px;
+    }
 </style>
 
 <div class="page-header">
-    <a asp-action="Index" asp-controller="About" asp-area="Admin" class="btn-back">
+    <a asp-action="Index" asp-controller="BlogCategory" asp-area="Admin" class="btn-back">
         <i class="bi bi-arrow-left"></i>
     </a>
-    <h4 class="page-title">Hakkımda güncelle</h4>
-    <span class="update-badge">Düzenleme modu</span>
+    <h4 class="page-title">Yeni blog kategorisi ekle</h4>
 </div>
 
-<form method="post">
-    <input type="hidden" asp-for="AboutId" />
+<form method="post" asp-action="CreateBlogCategory" asp-controller="BlogCategory" asp-area="Admin">
 
     <div class="section-card">
         <div class="section-label">
-            <i class="bi bi-text-left"></i> Açıklama
+            <i class="bi bi-tag"></i> Kategori bilgisi
         </div>
         <div class="field">
-            <label>Hakkımda metni</label>
-            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Kendini kısaca anlat..."></textarea>
-        </div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-label">
-            <i class="bi bi-images"></i> Görseller
-        </div>
-        <div class="img-row">
-            <div class="field">
-                <label>Resim URL 1</label>
-                <input type="text" asp-for="ImageUrl1" class="form-control" placeholder="https://..." />
-            </div>
-            <div class="field">
-                <label>Resim URL 2</label>
-                <input type="text" asp-for="ImageUrl2" class="form-control" placeholder="https://..." />
-            </div>
-        </div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-label">
-            <i class="bi bi-list-check"></i> Özellikler / Maddeler
-        </div>
-        <div class="items-grid">
-            <div class="item-field">
-                <div class="item-num">1</div>
-                <input type="text" asp-for="Item1" class="form-control" placeholder="Madde 1" />
-            </div>
-            <div class="item-field">
-                <div class="item-num">2</div>
-                <input type="text" asp-for="Item2" class="form-control" placeholder="Madde 2" />
-            </div>
-            <div class="item-field">
-                <div class="item-num">3</div>
-                <input type="text" asp-for="Item3" class="form-control" placeholder="Madde 3" />
-            </div>
-            <div class="item-field">
-                <div class="item-num">4</div>
-                <input type="text" asp-for="Item4" class="form-control" placeholder="Madde 4" />
-            </div>
+            <label asp-for="Name">Kategori adı</label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="Kategori adını girin..." />
+            <span asp-validation-for="Name" class="validation-message"></span>
         </div>
     </div>
 
     <div class="form-footer">
-        <a asp-action="Index" asp-controller="About" asp-area="Admin" class="btn-cancel">
+        <a asp-action="Index" asp-controller="BlogCategory" asp-area="Admin" class="btn-cancel">
             İptal
         </a>
-        <button type="submit" class="btn-update">
-            <i class="bi bi-check2"></i> Güncelle
+        <button type="submit" class="btn-save">
+            <i class="bi bi-floppy"></i> Kaydet
         </button>
     </div>
+
 </form>

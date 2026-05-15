@@ -1,7 +1,7 @@
-﻿@model List<ResultAboutDto>
+﻿@model List<ResultBlogDto>
 
 @{
-    ViewData["Title"] = "Hakkımda Sayfası";
+    ViewData["Title"] = "Blog Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -111,57 +111,38 @@
         width: 36px;
     }
 
-    .img-pair {
+    .banner-cell {
         display: flex;
-        gap: 6px;
+        align-items: center;
+        gap: 12px;
     }
 
-    .img-thumb {
-        width: 44px;
-        height: 44px;
-        border-radius: 8px;
+    .banner-img {
+        width: 74px;
+        height: 75px;
+        border-radius: 10px;
         object-fit: cover;
         border: 0.5px solid #e0e0de;
         background: #f5f5f4;
     }
 
     .img-placeholder {
-        width: 44px;
-        height: 44px;
-        border-radius: 8px;
+        width: 74px;
+        height: 75px;
+        border-radius: 10px;
         border: 0.5px dashed #e0e0de;
         background: #f5f5f4;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #b4b2a9;
-        font-size: 16px;
+        font-size: 18px;
     }
 
-    .desc-cell {
-        color: #6b6b68;
+    .banner-title {
         font-size: 13px;
-        line-height: 1.5;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .items-cell {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-
-    .item-tag {
-        background: #f5f5f4;
-        border: 0.5px solid #e0e0de;
-        border-radius: 20px;
-        padding: 2px 8px;
-        font-size: 11px;
-        color: #6b6b68;
-        white-space: nowrap;
+        color: #1a1a1a;
+        font-weight: 500;
     }
 
     .actions {
@@ -209,20 +190,44 @@
             color: #185fa5;
             text-decoration: none;
         }
+
+    .img-pair {
+        width: 74px;
+        height: 75px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 0.5px solid #e0e0de;
+        background: #f5f5f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .img-thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 </style>
 
 <div class="page-header">
     <div style="display:flex; align-items:center; gap:10px;">
         <h4 class="page-title">
-            <i class="bi bi-person-circle"></i>
-            Hakkımda kayıtları
+            <i class="bi bi-images"></i>
+            Blog kayıtları
         </h4>
         <span class="badge-count">@Model.Count kayıt</span>
     </div>
-    <a asp-action="CreateAbout" asp-controller="About" asp-area="Admin" class="btn-add">
-        <i class="bi bi-plus-lg"></i> Yeni ekle
+
+    <a asp-action="CreateBlog"
+       asp-controller="Blog"
+       asp-area="Admin"
+       class="btn-add">
+        <i class="bi bi-plus-lg"></i> Yeni blog ekle
     </a>
 </div>
+
 
 <div class="tbl-wrap">
     <table>
@@ -230,8 +235,10 @@
             <tr>
                 <th style="width:44px;">#</th>
                 <th style="width:120px;">Görseller</th>
-                <th>Açıklama</th>
-                <th>Özellikler</th>
+                <th>Başlık</th>
+                <th>İçerik</th>
+                <th>Blog tarihi</th>
+                <th>Blog Categori Adı</th>
                 <th style="width:150px; text-align:right;">İşlemler</th>
             </tr>
         </thead>
@@ -240,7 +247,7 @@
             {
                 <tr>
                     <td colspan="5" style="text-align:center; padding:2.5rem; color:#b4b2a9; font-size:13px;">
-                        Henüz kayıt eklenmedi.
+                        Henüz blog eklenmedi.
                     </td>
                 </tr>
             }
@@ -254,62 +261,42 @@
                         <td class="num-cell">@count</td>
                         <td>
                             <div class="img-pair">
-                                @if (!string.IsNullOrEmpty(item.ImageUrl1))
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
                                 {
-                                    <img class="img-thumb" src="@item.ImageUrl1" alt="Resim 1"
+                                    <img class="img-thumb" src="@item.ImageUrl" alt="Resim 1"
                                          onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
                                 }
                                 else
                                 {
-                                    <div class="img-placeholder"><i class="bi bi-image"></i></div>
-                                }
-                                @if (!string.IsNullOrEmpty(item.ImageUrl2))
-                                {
-                                    <img class="img-thumb" src="@item.ImageUrl2" alt="Resim 2"
-                                         onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
-                                }
-                                else
-                                {
-                                    <div class="img-placeholder"><i class="bi bi-image"></i></div>
-                                }
+                                    <img class="img-thumb" src="https://www.aluext.com.tr/wp-content/uploads/2022/11/resim-yok-1.png" alt="Resim 1" />
+                                }                                
                             </div>
                         </td>
                         <td>
-                            <div class="desc-cell" title="@item.Description">@item.Description</div>
+                            <div class="desc-cell">@item.Title</div>
                         </td>
                         <td>
-                            <div class="items-cell">
-                                @if (!string.IsNullOrEmpty(item.Item1))
-                                {
-                                    <span class="item-tag">@item.Item1</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item2))
-                                {
-                                    <span class="item-tag">@item.Item2</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item3))
-                                {
-                                    <span class="item-tag">@item.Item3</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item4))
-                                {
-                                    <span class="item-tag">@item.Item4</span>
-                                }
+                            <div class="desc-cell">
+                                @(item.Content?.Length > 30
+                                    ? item.Content.Substring(0, 50) + "..."
+                                    : item.Content)
                             </div>
+                        </td>
+                        <td>
+                            <div class="desc-cell" >@item.BlogDate.ToShortDateString()</div>
+                        </td>
+                        <td>
+                            <div class="desc-cell">@item.BlogCategory.Name</div>
                         </td>
                         <td>
                             <div class="actions">
-                                <a asp-action="DeleteAbout"
-                                   asp-controller="About"
-                                   asp-area="Admin"
-                                   asp-route-id="@item.AboutId"
-                                   class="btn-del">
+                                <button onclick="deleteBlog(@item.BlogId)" class="btn-del">
                                     <i class="bi bi-trash3"></i> Sil
-                                </a>
-                                <a asp-action="UpdateAbout"
-                                   asp-controller="About"
+                                </button>
+                                <a asp-action="UpdateBlog"
+                                   asp-controller="Blog"
                                    asp-area="Admin"
-                                   asp-route-id="@item.AboutId"
+                                   asp-route-id="@item.BlogId"
                                    class="btn-edit">
                                     <i class="bi bi-pencil"></i> Güncelle
                                 </a>
@@ -321,3 +308,22 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function deleteBlog(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu işlemi geri alamazsınız.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+               window.location.href ="/Admin/Blog/DeleteBlog/" + id;
+            }
+        });
+    }
+</script>

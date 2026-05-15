@@ -1,7 +1,7 @@
-﻿@model List<ResultAboutDto>
+﻿@model List<ResultBannerDto>
 
 @{
-    ViewData["Title"] = "Hakkımda Sayfası";
+    ViewData["Title"] = "Banner Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -111,57 +111,38 @@
         width: 36px;
     }
 
-    .img-pair {
+    .banner-cell {
         display: flex;
-        gap: 6px;
+        align-items: center;
+        gap: 12px;
     }
 
-    .img-thumb {
-        width: 44px;
-        height: 44px;
-        border-radius: 8px;
+    .banner-img {
+        width: 74px;
+        height: 75px;
+        border-radius: 10px;
         object-fit: cover;
         border: 0.5px solid #e0e0de;
         background: #f5f5f4;
     }
 
     .img-placeholder {
-        width: 44px;
-        height: 44px;
-        border-radius: 8px;
+        width: 74px;
+        height: 75px;
+        border-radius: 10px;
         border: 0.5px dashed #e0e0de;
         background: #f5f5f4;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #b4b2a9;
-        font-size: 16px;
+        font-size: 18px;
     }
 
-    .desc-cell {
-        color: #6b6b68;
+    .banner-title {
         font-size: 13px;
-        line-height: 1.5;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .items-cell {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-
-    .item-tag {
-        background: #f5f5f4;
-        border: 0.5px solid #e0e0de;
-        border-radius: 20px;
-        padding: 2px 8px;
-        font-size: 11px;
-        color: #6b6b68;
-        white-space: nowrap;
+        color: #1a1a1a;
+        font-weight: 500;
     }
 
     .actions {
@@ -214,13 +195,17 @@
 <div class="page-header">
     <div style="display:flex; align-items:center; gap:10px;">
         <h4 class="page-title">
-            <i class="bi bi-person-circle"></i>
-            Hakkımda kayıtları
+            <i class="bi bi-images"></i>
+            Banner kayıtları
         </h4>
         <span class="badge-count">@Model.Count kayıt</span>
     </div>
-    <a asp-action="CreateAbout" asp-controller="About" asp-area="Admin" class="btn-add">
-        <i class="bi bi-plus-lg"></i> Yeni ekle
+
+    <a asp-action="CreateBanner"
+       asp-controller="Banner"
+       asp-area="Admin"
+       class="btn-add">
+        <i class="bi bi-plus-lg"></i> Yeni banner ekle
     </a>
 </div>
 
@@ -229,90 +214,75 @@
         <thead>
             <tr>
                 <th style="width:44px;">#</th>
-                <th style="width:120px;">Görseller</th>
-                <th>Açıklama</th>
-                <th>Özellikler</th>
-                <th style="width:150px; text-align:right;">İşlemler</th>
+                <th>Resim</th>
+                <th>Başlık</th>
+                <th style="width:160px; text-align:right;">İşlemler</th>
             </tr>
         </thead>
+
         <tbody>
             @if (!Model.Any())
             {
                 <tr>
-                    <td colspan="5" style="text-align:center; padding:2.5rem; color:#b4b2a9; font-size:13px;">
-                        Henüz kayıt eklenmedi.
+                    <td colspan="3"
+                        style="text-align:center; padding:2.5rem; color:#b4b2a9; font-size:13px;">
+                        Henüz banner eklenmedi.
                     </td>
                 </tr>
             }
             else
             {
                 int count = 0;
+
                 @foreach (var item in Model)
                 {
                     count++;
+
                     <tr>
                         <td class="num-cell">@count</td>
+
                         <td>
-                            <div class="img-pair">
-                                @if (!string.IsNullOrEmpty(item.ImageUrl1))
+                            <div class="banner-cell">
+
+                                @if (!string.IsNullOrEmpty(item.Image))
                                 {
-                                    <img class="img-thumb" src="@item.ImageUrl1" alt="Resim 1"
+                                    <img class="banner-img"
+                                         src="@item.Image"
+                                         alt="Banner"
                                          onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
                                 }
                                 else
                                 {
-                                    <div class="img-placeholder"><i class="bi bi-image"></i></div>
+                                    <div class="img-placeholder">
+                                        <i class="bi bi-image"></i>
+                                    </div>
                                 }
-                                @if (!string.IsNullOrEmpty(item.ImageUrl2))
-                                {
-                                    <img class="img-thumb" src="@item.ImageUrl2" alt="Resim 2"
-                                         onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
-                                }
-                                else
-                                {
-                                    <div class="img-placeholder"><i class="bi bi-image"></i></div>
-                                }
+
+                                <div class="banner-title">
+                                    @item.Title
+                                </div>
                             </div>
                         </td>
-                        <td>
-                            <div class="desc-cell" title="@item.Description">@item.Description</div>
-                        </td>
-                        <td>
-                            <div class="items-cell">
-                                @if (!string.IsNullOrEmpty(item.Item1))
-                                {
-                                    <span class="item-tag">@item.Item1</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item2))
-                                {
-                                    <span class="item-tag">@item.Item2</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item3))
-                                {
-                                    <span class="item-tag">@item.Item3</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item4))
-                                {
-                                    <span class="item-tag">@item.Item4</span>
-                                }
-                            </div>
-                        </td>
+
                         <td>
                             <div class="actions">
-                                <a asp-action="DeleteAbout"
-                                   asp-controller="About"
+
+                                <a asp-action="DeleteBanner"
+                                   asp-controller="Banner"
                                    asp-area="Admin"
-                                   asp-route-id="@item.AboutId"
+                                   asp-route-id="@item.BannerId"
                                    class="btn-del">
                                     <i class="bi bi-trash3"></i> Sil
                                 </a>
-                                <a asp-action="UpdateAbout"
-                                   asp-controller="About"
+
+                                <a asp-action="UpdateBanner"
+                                   asp-controller="Banner"
                                    asp-area="Admin"
-                                   asp-route-id="@item.AboutId"
+                                   asp-route-id="@item.BannerId"
                                    class="btn-edit">
                                     <i class="bi bi-pencil"></i> Güncelle
                                 </a>
+
                             </div>
                         </td>
                     </tr>
@@ -321,3 +291,4 @@
         </tbody>
     </table>
 </div>
+

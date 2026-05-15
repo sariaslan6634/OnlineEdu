@@ -1,7 +1,7 @@
-﻿@model List<ResultAboutDto>
+﻿@model List<ResultBlogCategoryDto>
 
 @{
-    ViewData["Title"] = "Hakkımda Sayfası";
+    ViewData["Title"] = "Blog Kategorileri";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -215,11 +215,11 @@
     <div style="display:flex; align-items:center; gap:10px;">
         <h4 class="page-title">
             <i class="bi bi-person-circle"></i>
-            Hakkımda kayıtları
+            Blog Kategori kayıtları
         </h4>
         <span class="badge-count">@Model.Count kayıt</span>
     </div>
-    <a asp-action="CreateAbout" asp-controller="About" asp-area="Admin" class="btn-add">
+    <a asp-action="CreateBlogCategory" asp-controller="BlogCategory" asp-area="Admin" class="btn-add">
         <i class="bi bi-plus-lg"></i> Yeni ekle
     </a>
 </div>
@@ -229,9 +229,7 @@
         <thead>
             <tr>
                 <th style="width:44px;">#</th>
-                <th style="width:120px;">Görseller</th>
-                <th>Açıklama</th>
-                <th>Özellikler</th>
+                <th style="width:120px;">Blog Kategori Adı</th>
                 <th style="width:150px; text-align:right;">İşlemler</th>
             </tr>
         </thead>
@@ -253,63 +251,18 @@
                     <tr>
                         <td class="num-cell">@count</td>
                         <td>
-                            <div class="img-pair">
-                                @if (!string.IsNullOrEmpty(item.ImageUrl1))
-                                {
-                                    <img class="img-thumb" src="@item.ImageUrl1" alt="Resim 1"
-                                         onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
-                                }
-                                else
-                                {
-                                    <div class="img-placeholder"><i class="bi bi-image"></i></div>
-                                }
-                                @if (!string.IsNullOrEmpty(item.ImageUrl2))
-                                {
-                                    <img class="img-thumb" src="@item.ImageUrl2" alt="Resim 2"
-                                         onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
-                                }
-                                else
-                                {
-                                    <div class="img-placeholder"><i class="bi bi-image"></i></div>
-                                }
-                            </div>
-                        </td>
-                        <td>
-                            <div class="desc-cell" title="@item.Description">@item.Description</div>
-                        </td>
-                        <td>
-                            <div class="items-cell">
-                                @if (!string.IsNullOrEmpty(item.Item1))
-                                {
-                                    <span class="item-tag">@item.Item1</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item2))
-                                {
-                                    <span class="item-tag">@item.Item2</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item3))
-                                {
-                                    <span class="item-tag">@item.Item3</span>
-                                }
-                                @if (!string.IsNullOrEmpty(item.Item4))
-                                {
-                                    <span class="item-tag">@item.Item4</span>
-                                }
-                            </div>
+                            <div class="desc-cell" title="@item.Name">@item.Name</div>
                         </td>
                         <td>
                             <div class="actions">
-                                <a asp-action="DeleteAbout"
-                                   asp-controller="About"
-                                   asp-area="Admin"
-                                   asp-route-id="@item.AboutId"
+                                <button onclick="deleteBlogCategory(@item.BlogCategoryId)"
                                    class="btn-del">
                                     <i class="bi bi-trash3"></i> Sil
-                                </a>
-                                <a asp-action="UpdateAbout"
-                                   asp-controller="About"
+                                </button>
+                                <a asp-action="UpdateBlogCategory"
+                                   asp-controller="BlogCategory"
                                    asp-area="Admin"
-                                   asp-route-id="@item.AboutId"
+                                   asp-route-id="@item.BlogCategoryId"
                                    class="btn-edit">
                                     <i class="bi bi-pencil"></i> Güncelle
                                 </a>
@@ -321,3 +274,22 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function deleteBlogCategory(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu işlemi geri alamazsınız.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+               window.location.href ="/Admin/BlogCategory/DeleteBlogCategory/" + id;
+            }
+        });
+    }
+</script>

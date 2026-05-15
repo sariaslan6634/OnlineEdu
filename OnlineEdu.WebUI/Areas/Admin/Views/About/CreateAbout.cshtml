@@ -4,27 +4,290 @@
     ViewData["Title"] = "Yeni hakkımda oluşturma sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+    .page-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1.5rem;
+        padding-top: 1rem;
+    }
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        border: 0.5px solid #e0e0de;
+        color: #6b6b68;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 13px;
+        text-decoration: none;
+    }
+    .btn-back:hover {
+        background: #f5f5f4;
+        color: #1a1a1a;
+        text-decoration: none;
+    }
+    .page-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+        color: #1a1a1a;
+    }
+    .section-card {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #888780;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 1rem;
+    }
+    .field {
+        margin-bottom: 1rem;
+    }
+    .field:last-child {
+        margin-bottom: 0;
+    }
+    .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b6b68;
+        margin-bottom: 6px;
+    }
+    .field .form-control {
+        font-size: 14px;
+        border: 0.5px solid #e0e0de;
+        border-radius: 8px;
+        padding: 8px 12px;
+        color: #1a1a1a;
+        background: #ffffff;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .field .form-control:focus {
+        outline: none;
+        border-color: #888780;
+        box-shadow: none;
+    }
+    .field textarea.form-control {
+        resize: vertical;
+        min-height: 110px;
+        line-height: 1.6;
+    }
+    .char-count {
+        font-size: 11px;
+        color: #b4b2a9;
+        text-align: right;
+        margin-top: 4px;
+    }
+    .img-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .img-preview {
+        margin-top: 6px;
+        height: 56px;
+        border-radius: 8px;
+        border: 0.5px dashed #e0e0de;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9f9f8;
+        color: #b4b2a9;
+        font-size: 12px;
+        gap: 6px;
+        overflow: hidden;
+    }
+    .img-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+    .items-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .item-field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .item-num {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #f5f5f4;
+        border: 0.5px solid #e0e0de;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 500;
+        color: #6b6b68;
+        flex-shrink: 0;
+    }
+    .item-field .form-control {
+        flex: 1;
+    }
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding-top: 0.5rem;
+    }
+    .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        border: 0.5px solid #e0e0de;
+        color: #6b6b68;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-size: 13px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .btn-cancel:hover {
+        background: #f5f5f4;
+        color: #1a1a1a;
+        text-decoration: none;
+    }
+    .btn-save {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        border: none;
+        color: #ffffff;
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .btn-save:hover {
+        opacity: 0.85;
+    }
+    .validation-message {
+        font-size: 12px;
+        color: #a32d2d;
+        margin-top: 4px;
+    }
+</style>
 
-<form method="post">
-    <label>Açıklama</label>
-    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-    <br/>
-    <label>Resim Url 1</label>
-    <input type="text" asp-for ="ImageUrl1" class="form-control" />
-    <br />
-    <label>Resim Url 2</label>
-    <input type="text" asp-for="ImageUrl2" class="form-control" />
-    <br />
-    <label>Madde 1 </label>
-    <input type="text" asp-for="Item1" class="form-control" />
-    <br />
-    <label>Madde 2 </label>
-    <input type="text" asp-for="Item2" class="form-control" />
-    <br />
-    <label>Madde 3 </label>
-    <input type="text" asp-for="Item3" class="form-control" />
-    <br />
-    <label>Madde 4 </label>
-    <input type="text" asp-for="Item4" class="form-control" />
-    <button class="btn btn-outline-primary">Kaydet</button>
+<div class="page-header">
+    <a asp-action="Index" asp-controller="About" asp-area="Admin" class="btn-back">
+        <i class="bi bi-arrow-left"></i>
+    </a>
+    <h4 class="page-title">Yeni hakkımda ekle</h4>
+</div>
+
+<form method="post" asp-action="CreateAbout" asp-controller="About" asp-area="Admin">
+
+    <div class="section-card">
+        <div class="section-label">
+            <i class="bi bi-text-left"></i> Açıklama
+        </div>
+        <div class="field">
+            <label asp-for="Description">Hakkımda metni</label>
+            <textarea asp-for="Description" class="form-control" rows="5"
+                      placeholder="Kendini kısaca anlat..."
+                      oninput="document.getElementById('charcount').textContent=this.value.length+' karakter'"></textarea>
+            <div class="char-count" id="charcount">0 karakter</div>
+            <span asp-validation-for="Description" class="validation-message"></span>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-label">
+            <i class="bi bi-images"></i> Görseller
+        </div>
+        <div class="img-row">
+            <div class="field">
+                <label asp-for="ImageUrl1">Resim URL 1</label>
+                <input type="text" asp-for="ImageUrl1" class="form-control"
+                       placeholder="https://..."
+                       oninput="updatePreview(this.value,'prev1')" />
+                <div class="img-preview" id="prev1">
+                    <i class="bi bi-image"></i> <span>Önizleme</span>
+                </div>
+                <span asp-validation-for="ImageUrl1" class="validation-message"></span>
+            </div>
+            <div class="field">
+                <label asp-for="ImageUrl2">Resim URL 2</label>
+                <input type="text" asp-for="ImageUrl2" class="form-control"
+                       placeholder="https://..."
+                       oninput="updatePreview(this.value,'prev2')" />
+                <div class="img-preview" id="prev2">
+                    <i class="bi bi-image"></i> <span>Önizleme</span>
+                </div>
+                <span asp-validation-for="ImageUrl2" class="validation-message"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-label">
+            <i class="bi bi-list-check"></i> Özellikler / Maddeler
+        </div>
+        <div class="items-grid">
+            <div class="item-field">
+                <div class="item-num">1</div>
+                <input type="text" asp-for="Item1" class="form-control" placeholder="Madde 1" />
+            </div>
+            <div class="item-field">
+                <div class="item-num">2</div>
+                <input type="text" asp-for="Item2" class="form-control" placeholder="Madde 2" />
+            </div>
+            <div class="item-field">
+                <div class="item-num">3</div>
+                <input type="text" asp-for="Item3" class="form-control" placeholder="Madde 3" />
+            </div>
+            <div class="item-field">
+                <div class="item-num">4</div>
+                <input type="text" asp-for="Item4" class="form-control" placeholder="Madde 4" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <a asp-action="Index" asp-controller="About" asp-area="Admin" class="btn-cancel">
+            İptal
+        </a>
+        <button type="submit" class="btn-save">
+            <i class="bi bi-floppy"></i> Kaydet
+        </button>
+    </div>
+
 </form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function updatePreview(url, previewId) {
+            const prev = document.getElementById(previewId);
+            url = url.trim();
+            if (url) {
+                prev.innerHTML = '<img src="' + url + '" alt="Önizleme" onerror="this.parentElement.innerHTML=\'<i class=bi bi-exclamation-circle></i> <span style=font-size:12px>Geçersiz URL</span>\'" />';
+            } else {
+                prev.innerHTML = '<i class="bi bi-image"></i> <span>Önizleme</span>';
+            }
+        }
+    </script>
+}

@@ -1,0 +1,215 @@
+﻿@model CreateBannerDto
+
+@{
+    ViewData["Title"] = "Yeni Banner Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+
+    .section-card {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 18px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+        .field label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+        }
+
+    .form-control {
+        border: 0.5px solid #dcdcd8;
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-size: 13px;
+        box-shadow: none !important;
+    }
+
+        .form-control:focus {
+            border-color: #1a1a1a;
+        }
+
+    .banner-preview {
+        margin-top: 14px;
+        width: 100%;
+        height: 220px;
+        border-radius: 14px;
+        border: 1px dashed #d8d8d5;
+        background: #f8f8f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        color: #a1a19d;
+        overflow: hidden;
+    }
+
+        .banner-preview i {
+            font-size: 28px;
+        }
+
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .btn-save {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .btn-save:hover {
+            opacity: 0.9;
+            color: #fff;
+        }
+
+    .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 0.5px solid #d6d6d2;
+        background: #fff;
+        color: #555;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+        .btn-cancel:hover {
+            background: #f5f5f4;
+            color: #1a1a1a;
+        }
+
+    .img-preview span {
+        font-size: 13px;
+    }
+
+</style>
+
+<form method="post"
+      asp-action="CreateBanner"
+      asp-controller="Banner"
+      asp-area="Admin">
+
+    <div class="section-card">
+
+        <div class="section-label">
+            <i class="bi bi-type"></i>
+            Banner Bilgisi
+        </div>
+
+        <div class="field">
+
+            <label asp-for="Title">Başlık</label>
+
+            <input type="text"
+                   asp-for="Title"
+                   class="form-control"
+                   placeholder="Banner başlığını giriniz..." />
+
+        </div>
+
+    </div>
+
+    <div class="section-card">
+
+        <div class="section-label">
+            <i class="bi bi-image"></i>
+            Banner Görseli
+        </div>
+
+        <div class="field">
+
+            <label asp-for="Image">Resim URL</label>
+
+            <input type="text"
+                   asp-for="Image"
+                   class="form-control"
+                   placeholder="https://example.com/banner.jpg"
+                   oninput="updateBannerPreview(this.value)" />
+
+            <div class="banner-preview" id="bannerPreview">
+                <i class="bi bi-image"></i>
+                <span>Banner Önizleme</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="form-footer">
+
+        <a asp-action="Index"
+           asp-controller="Banner"
+           asp-area="Admin"
+           class="btn-cancel">
+            <i class="bi bi-arrow-left"></i>
+            İptal
+        </a>
+
+        <button type="submit" class="btn-save">
+            <i class="bi bi-floppy"></i>
+            Kaydet
+        </button>
+
+    </div>
+
+</form>
+
+<script>
+
+    function updateBannerPreview(url) {
+
+        const preview = document.getElementById("bannerPreview");
+
+        if (url && url.trim() !== "") {
+
+            preview.innerHTML =
+                `<img src="${url}"
+                      style="width:100%; height:220px; object-fit:cover; border-radius:14px;"
+                      onerror="this.parentElement.innerHTML='<i class=\'bi bi-image\'></i><span>Görsel yüklenemedi</span>'" />`;
+
+        }
+        else {
+
+            preview.innerHTML =
+                `<i class="bi bi-image"></i><span>Banner Önizleme</span>`;
+        }
+    }
+
+</script>
