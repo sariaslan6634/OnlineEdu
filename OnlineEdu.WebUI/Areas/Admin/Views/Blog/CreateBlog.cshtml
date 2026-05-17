@@ -152,10 +152,12 @@
         </div>
 
         <div class="field">
-            <label asp-for="BlogCategoryId">Kategori</label>
-
-            <select asp-for="BlogCategoryId" asp-items="@ViewBag.categories">
-                <option>Kategori seçiniz...</option>
+            <label asp-for="BlogCategoryId">Kategori</label>            
+            <select asp-for="BlogCategoryId"
+                    class="form-control"
+                    asp-items="@((IEnumerable<SelectListItem>)ViewBag.categories)"
+                    style="height: 45px; font-size: 15px; padding: 8px 12px;">
+                <option value="">Kategori Seçin</option>
             </select>
         </div>
     </div>

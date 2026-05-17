@@ -12,10 +12,10 @@ namespace OnlineEdu.API.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        private readonly IGenericService<Course> _courseService;
+        private readonly ICourseService _courseService;
         private readonly IMapper _mapper;
 
-        public CoursesController(IGenericService<Course> courseService, IMapper mapper)
+        public CoursesController(ICourseService courseService, IMapper mapper)
         {
             _courseService = courseService;
             _mapper = mapper;
@@ -55,5 +55,19 @@ namespace OnlineEdu.API.Controllers
             await _courseService.TUpdateAsync(newValue);
             return Ok("Kurs Alanı güncellendi");
         }
+
+        [HttpGet("ShowOnHome/{id}")]
+        public async Task<IActionResult> ShowOnHome(int id)
+        {
+            await _courseService.TShowOnHome(id);
+            return Ok("Ana sayfada Gösteriliyor.");
+        }
+        [HttpGet("DontShowOnHome/{id}")]
+        public async Task<IActionResult> DontShowOnHome(int id)
+        {
+            await _courseService.TDontShowOnHome(id);
+            return Ok("Ana sayfada gösterilmiyor.");
+        }
+
     }
 }

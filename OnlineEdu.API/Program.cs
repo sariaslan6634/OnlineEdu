@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineEdu.API.Extensions;
 using OnlineEdu.API.Mapping;
 using OnlineEdu.Business.Abstract;
 using OnlineEdu.Business.Concrete;
@@ -27,11 +28,9 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<TestimonialMapping>();
 });
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
 
-builder.Services.AddScoped<IBlogRepository,BlogRepository>();
-builder.Services.AddScoped<IBlogService,BlogManager>();
+//Extensions klosorundekiler burada!!
+builder.Services.AddServiceExtensions();
 
 builder.Services.AddDbContext<OnlineEduContext>(options => 
 {
