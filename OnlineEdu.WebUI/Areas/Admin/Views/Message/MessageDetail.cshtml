@@ -1,0 +1,229 @@
+﻿@model ResultMessageDto
+
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .detail-wrap {
+        max-width: 100%;
+    }
+
+    .detail-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 0.5px solid #e0e0de;
+        background: transparent;
+        color: #6b6b68;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-back:hover {
+            background: #f5f5f4;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+    .detail-card {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .detail-card-header {
+        padding: 16px 20px;
+        border-bottom: 0.5px solid #e0e0de;
+        background: #f9f9f8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subject-text {
+        font-size: 15px;
+        font-weight: 500;
+        color: #1a1a1a;
+        margin: 0;
+    }
+
+    .detail-meta {
+        padding: 16px 20px;
+        border-bottom: 0.5px solid #e0e0de;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .meta-label {
+        color: #888780;
+        width: 60px;
+        flex-shrink: 0;
+    }
+
+    .meta-value {
+        color: #1a1a1a;
+    }
+
+    .meta-email {
+        color: #185fa5;
+    }
+
+    .detail-content {
+        padding: 20px;
+        font-size: 14px;
+        color: #1a1a1a;
+        line-height: 1.7;
+        min-height: 160px;
+    }
+
+    .detail-footer {
+        padding: 14px 20px;
+        border-top: 0.5px solid #e0e0de;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-reply {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .btn-del {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border: 0.5px solid #f09595;
+        background: transparent;
+        color: #a32d2d;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-del:hover {
+            background: #fcebeb;
+            color: #a32d2d;
+            text-decoration: none;
+        }
+
+    .btn-reply {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+        .btn-reply:hover {
+            opacity: 0.85;
+            color: #ffffff;
+            text-decoration: none;
+        }
+</style>
+
+<div class="detail-wrap">
+    <div class="detail-header">
+        <a asp-action="Index"
+           asp-controller="Message"
+           asp-area="Admin"
+           class="btn-back">
+            <i class="bi bi-arrow-left"></i> Geri
+        </a>
+    </div>
+
+    <div class="detail-card">
+        <div class="detail-card-header">
+            <p class="subject-text">
+                <i class="bi bi-envelope" style="margin-right:6px; color:#888780;"></i>
+                @Model.Subject
+            </p>
+        </div>
+
+        <div class="detail-meta">
+            <div class="meta-row">
+                <span class="meta-label">Gönderen</span>
+                <span class="meta-value">@Model.Name</span>
+            </div>
+            <div class="meta-row">
+                <span class="meta-label">Email</span>
+                <a href="mailto:@Model.Email" class="meta-email">@Model.Email</a>
+            </div>
+        </div>
+
+        <div class="detail-content">
+            @Model.Content
+        </div>
+
+        <div class="detail-footer">
+            <a asp-action="ReplyMessage"
+               asp-controller="Message"
+               asp-area="Admin"
+               asp-route-id="@Model.MessageId"
+               class="btn-reply">
+                <i class="bi bi-reply"></i> Cevap Ver
+            </a>
+            <button onclick="deleteMessage(@Model.MessageId)" class="btn-del">
+                <i class="bi bi-trash3"></i> Sil
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteMessage(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu işlemi geri alamazsınız.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Message/DeleteMessage/" + @Model.MessageId;
+            }
+        });
+    }
+</script>

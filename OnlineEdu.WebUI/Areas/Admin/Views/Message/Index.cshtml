@@ -1,0 +1,239 @@
+﻿@model List<ResultMessageDto>
+
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .msg-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1.25rem;
+        padding-top: 1rem;
+    }
+
+    .msg-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+        color: #1a1a1a;
+    }
+
+    .msg-badge {
+        background: #f5f5f4;
+        border: 0.5px solid #e0e0de;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #6b6b68;
+        padding: 3px 10px;
+    }
+
+    .tbl-card {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+        .tbl-card table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-bottom: 0;
+        }
+
+        .tbl-card thead tr {
+            background: #f9f9f8;
+        }
+
+        .tbl-card thead th {
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #888780;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 0.5px solid #e0e0de;
+            border-top: none;
+            text-align: left;
+        }
+
+        .tbl-card tbody tr {
+            border-bottom: 0.5px solid #ebebea;
+            transition: background 0.15s;
+        }
+
+            .tbl-card tbody tr:last-child {
+                border-bottom: none;
+            }
+
+            .tbl-card tbody tr:hover {
+                background: #f9f9f8;
+            }
+
+        .tbl-card td {
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #1a1a1a;
+            vertical-align: middle;
+            border-top: none;
+        }
+
+    .num-cell {
+        color: #b4b2a9;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        max-width: 180px;
+    }
+
+    .subject-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #f5f5f4;
+        border: 0.5px solid #e0e0de;
+        border-radius: 20px;
+        padding: 3px 10px;
+        font-size: 12px;
+        color: #6b6b68;
+    }
+
+    .actions {
+        display: flex;
+        gap: 6px;
+        justify-content: flex-end;
+    }
+
+    .btn-del {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border: 0.5px solid #f09595;
+        background: transparent;
+        color: #a32d2d;
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-del:hover {
+            background: #fcebeb;
+            color: #a32d2d;
+            text-decoration: none;
+        }
+
+    .btn-open {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border: 0.5px solid #85b7eb;
+        background: transparent;
+        color: #185fa5;
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-open:hover {
+            background: #e6f1fb;
+            color: #185fa5;
+            text-decoration: none;
+        }
+
+</style>
+
+<div class="msg-header">
+    <i class="bi bi-inbox" style="font-size:18px; color:#888780;"></i>
+    <h4 class="msg-title">Gelen Mesajlar</h4>
+    <span class="msg-badge">@Model.Count mesaj</span>
+</div>
+
+<div class="tbl-card">
+    <table>
+        <thead>
+            <tr>
+                <th style="width:40px;">#</th>
+                <th>Gönderen</th>
+                <th>Email</th>
+                <th>Konu</th>
+                <th style="width:140px; text-align:right;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="5" style="text-align:center; padding:2.5rem; color:#b4b2a9; font-size:13px;">
+                        <i class="bi bi-inbox" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        Henüz mesaj gelmedi.
+                    </td>
+                </tr>
+            }
+            else
+            {
+                int count = 0;
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td class="num-cell">@count</td>
+                        <td><span class="truncate" title="@item.Name">@item.Name</span></td>
+                        <td><span class="truncate" title="@item.Email">@item.Email</span></td>
+                        <td>
+                            <span class="subject-pill">
+                                <i class="bi bi-envelope" style="font-size:12px;"></i>
+                                @item.Subject
+                            </span>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <button onclick="deleteMessage(@item.MessageId)" class="btn-del">
+                                    <i class="bi bi-trash3"></i> Sil
+                                </button>
+                                <a asp-action="MessageDetail"
+                                   asp-controller="Message"
+                                   asp-area="Admin"
+                                   asp-route-id="@item.MessageId"
+                                   class="btn-open">
+                                    <i class="bi bi-eye"></i> Aç
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteMessage(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu işlemi geri alamazsınız.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Message/DeleteMessage/" + id;
+            }
+        });
+    }
+</script>

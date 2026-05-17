@@ -1,0 +1,248 @@
+﻿@model ResultMessageDto
+
+@{
+    ViewData["Title"] = "Cevap Ver";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .detail-wrap {
+        max-width: 100%;
+    }
+
+    .reply-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 0.5px solid #e0e0de;
+        background: transparent;
+        color: #6b6b68;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-back:hover {
+            background: #f5f5f4;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+    .reply-card {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .reply-card-header {
+        padding: 16px 20px;
+        border-bottom: 0.5px solid #e0e0de;
+        background: #f9f9f8;
+    }
+
+        .reply-card-header p {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+    .reply-meta {
+        padding: 16px 20px;
+        border-bottom: 0.5px solid #e0e0de;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .meta-label {
+        color: #888780;
+        width: 60px;
+        flex-shrink: 0;
+    }
+
+    .meta-value {
+        color: #1a1a1a;
+    }
+
+    .meta-email {
+        color: #185fa5;
+    }
+
+    .original-msg {
+        padding: 16px 20px;
+        border-bottom: 0.5px solid #e0e0de;
+        background: #f9f9f8;
+    }
+
+    .original-label {
+        font-size: 11px;
+        font-weight: 500;
+        color: #888780;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+    }
+
+    .original-text {
+        font-size: 13px;
+        color: #6b6b68;
+        line-height: 1.6;
+        border-left: 2px solid #e0e0de;
+        padding-left: 12px;
+        margin: 0;
+    }
+
+    .reply-body {
+        padding: 20px;
+    }
+
+    .reply-label {
+        font-size: 11px;
+        font-weight: 500;
+        color: #888780;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 10px;
+    }
+
+    .reply-textarea {
+        width: 100%;
+        min-height: 160px;
+        border: 0.5px solid #e0e0de;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 13px;
+        color: #1a1a1a;
+        resize: vertical;
+        outline: none;
+        font-family: inherit;
+        box-sizing: border-box;
+    }
+
+        .reply-textarea:focus {
+            border-color: #85b7eb;
+        }
+
+    .reply-footer {
+        padding: 14px 20px;
+        border-top: 0.5px solid #e0e0de;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-send {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-send:hover {
+            opacity: 0.85;
+        }
+
+    .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 0.5px solid #e0e0de;
+        background: transparent;
+        color: #6b6b68;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-cancel:hover {
+            background: #f5f5f4;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+</style>
+
+<div class="reply-wrap">
+    <div class="reply-header">
+        <a asp-action="MessageDetail"
+           asp-controller="Message"
+           asp-area="Admin"
+           asp-route-id="@Model.MessageId"
+           class="btn-back">
+            <i class="bi bi-arrow-left"></i> Geri
+        </a>
+    </div>
+
+    <div class="reply-card">
+        <div class="reply-card-header">
+            <p>
+                <i class="bi bi-reply" style="margin-right:6px; color:#888780;"></i>
+                Re: @Model.Subject
+            </p>
+        </div>
+
+        <div class="reply-meta">
+            <div class="meta-row">
+                <span class="meta-label">Kime</span>
+                <span class="meta-email">@Model.Email</span>
+            </div>
+            <div class="meta-row">
+                <span class="meta-label">Konu</span>
+                <span class="meta-value">Re: @Model.Subject</span>
+            </div>
+        </div>
+
+        <div class="original-msg">
+            <p class="original-label">Orijinal Mesaj</p>
+            <p class="original-text">@Model.Content</p>
+        </div>
+
+        <div class="reply-body">
+            <p class="reply-label">Cevabınız</p>
+            <textarea class="reply-textarea"
+                      id="replyContent"
+                      placeholder="Cevabınızı buraya yazın..."></textarea>
+        </div>
+
+        <div class="reply-footer">
+            <button class="btn-send" disabled style="opacity:0.5; cursor:not-allowed;">
+                <i class="bi bi-send"></i> Gönder
+            </button>
+            <a asp-action="MessageDetail"
+               asp-controller="Message"
+               asp-area="Admin"
+               asp-route-id="@Model.MessageId"
+               class="btn-cancel">
+                İptal
+            </a>
+        </div>
+    </div>
+</div>
