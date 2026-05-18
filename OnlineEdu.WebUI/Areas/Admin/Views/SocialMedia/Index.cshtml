@@ -1,0 +1,334 @@
+﻿@model List<ResultSocialMediaDto>
+
+@{
+    ViewData["Title"] = "Sosyal Media Hesapları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .badge-aktif {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #EAF3DE;
+        color: #3B6D11;
+        border: 0.5px solid #97C459;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .badge-pasif {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #FCEBEB;
+        color: #A32D2D;
+        border: 0.5px solid #F09595;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+        display: inline-block;
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    .page-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #1a1a1a;
+    }
+
+    .badge-count {
+        background: #f5f5f4;
+        border: 0.5px solid #e0e0de;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #6b6b68;
+        padding: 2px 10px;
+    }
+
+    .btn-add {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-add:hover {
+            opacity: 0.85;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+    .tbl-wrap {
+        background: #ffffff;
+        border: 0.5px solid #e0e0de;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+        .tbl-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-bottom: 0;
+        }
+
+        .tbl-wrap thead tr {
+            background: #f9f9f8;
+        }
+
+        .tbl-wrap thead th {
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #888780;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 0.5px solid #e0e0de;
+            border-top: none;
+            text-align: left;
+        }
+
+        .tbl-wrap tbody tr {
+            border-bottom: 0.5px solid #ebebea;
+        }
+
+            .tbl-wrap tbody tr:last-child {
+                border-bottom: none;
+            }
+
+            .tbl-wrap tbody tr:hover {
+                background: #f9f9f8;
+            }
+
+        .tbl-wrap td {
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #1a1a1a;
+            vertical-align: middle;
+            border-top: none;
+        }
+
+    .num-cell {
+        color: #b4b2a9;
+        font-size: 12px;
+        font-weight: 500;
+        width: 36px;
+    }
+
+    .img-pair {
+        display: flex;
+        gap: 6px;
+    }
+
+    .img-thumb {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 0.5px solid #e0e0de;
+        background: #f5f5f4;
+    }
+
+    .img-placeholder {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        border: 0.5px dashed #e0e0de;
+        background: #f5f5f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #b4b2a9;
+        font-size: 16px;
+    }
+
+    .desc-cell {
+        color: #6b6b68;
+        font-size: 13px;
+        line-height: 1.5;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .items-cell {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .item-tag {
+        background: #f5f5f4;
+        border: 0.5px solid #e0e0de;
+        border-radius: 20px;
+        padding: 2px 8px;
+        font-size: 11px;
+        color: #6b6b68;
+        white-space: nowrap;
+    }
+
+    .actions {
+        display: flex;
+        gap: 6px;
+        justify-content: flex-end;
+    }
+
+    .btn-del {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border: 0.5px solid #f09595;
+        background: transparent;
+        color: #a32d2d;
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-del:hover {
+            background: #fcebeb;
+            color: #a32d2d;
+            text-decoration: none;
+        }
+
+    .btn-edit {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border: 0.5px solid #85b7eb;
+        background: transparent;
+        color: #185fa5;
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn-edit:hover {
+            background: #e6f1fb;
+            color: #185fa5;
+            text-decoration: none;
+        }
+</style>
+
+<div class="page-header">
+    <div style="display:flex; align-items:center; gap:10px;">
+        <h4 class="page-title">
+            <i class="bi bi-images"></i>
+            Sosyal Medya Hesap kayıtları
+        </h4>
+        <span class="badge-count">@Model.Count kayıt</span>
+    </div>
+
+    <a asp-action="CreateSocialMedia"
+       asp-controller="SocialMedia"
+       asp-area="Admin"
+       class="btn-add">
+        <i class="bi bi-plus-lg"></i> Yeni sosyal medya ekle
+    </a>
+</div>
+
+
+<div class="tbl-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th style="width:44px;">#</th>
+                <th>Sosyal Medya</th>
+                <th style="width:150px; text-align:right;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="5" style="text-align:center; padding:2.5rem; color:#b4b2a9; font-size:13px;">
+                        Henüz sosyal medya hesapınız eklenmedi.
+                    </td>
+                </tr>
+            }
+            else
+            {
+                int count = 0;
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td class="num-cell">@count</td>
+                        <td>
+                            <i class="@item.Icon fa-2x"></i>
+                            <a href="@item.Url" target="_blank">  @item.Title</a>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <button onclick="deleteSocialMedia(@item.SocialMediaId)" class="btn-del">
+                                    <i class="bi bi-trash3"></i> Sil
+                                </button>
+                                <a asp-action="UpdateSocialMedia"
+                                   asp-controller="SocialMedia"
+                                   asp-area="Admin"
+                                   asp-route-id="@item.SocialMediaId"
+                                   class="btn-edit">
+                                    <i class="bi bi-pencil"></i> Güncelle
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteSocialMedia(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu işlemi geri alamazsınız.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+               window.location.href ="/Admin/SocialMedia/DeleteSocialMedia/" + id;
+            }
+        });
+    }
+</script>
