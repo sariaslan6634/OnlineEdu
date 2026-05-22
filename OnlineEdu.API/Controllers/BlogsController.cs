@@ -18,7 +18,13 @@ namespace OnlineEdu.API.Controllers
             var blogs = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(blogs);
         }
-       
+        [HttpGet("BlogByCategory")]
+        public async Task<IActionResult> BlogByCategory(string categoryName)
+        {
+            var values = _blogService.TGetBlogsByCategory(categoryName);
+            return Ok(values);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

@@ -69,5 +69,12 @@ namespace OnlineEdu.API.Controllers
             await _courseCategoryService.TDontShowOnHome(id);
             return Ok("Ana sayfada gösterilmiyor.");
         }
+
+        [HttpGet("GetActiveCategories")]
+        public async Task<IActionResult> GetActiveCategories()
+        {
+            var values = await _courseCategoryService.TGetFilteredListAsync(x => x.IsActive == true);
+            return Ok(values);
+        }
     }
 }

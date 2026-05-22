@@ -68,6 +68,11 @@ namespace OnlineEdu.API.Controllers
             await _courseService.TDontShowOnHome(id);
             return Ok("Ana sayfada gösterilmiyor.");
         }
-
+        [HttpGet("GetActiveCourses")]
+        public async Task<IActionResult> GetActiveCourses()
+        {
+            var values = await _courseService.TGetFilteredListAsync(x => x.IsActive == true);
+            return Ok(values);
+        }
     }
 }

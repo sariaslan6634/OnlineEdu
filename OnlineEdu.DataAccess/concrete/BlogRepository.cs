@@ -16,6 +16,13 @@ namespace OnlineEdu.DataAccess.concrete
         {
             _educontext = _context;
         }
+
+        public List<Blog> GetBlogsByCategory(string categoryName)
+        {
+            return _educontext.Blogs.Include(x => x.BlogCategory)
+                .Where(x => x.BlogCategory.Name == categoryName).ToList();
+        }
+
         public List<Blog> GetBlogsWithCategories()
         {
             return _educontext.Blogs.Include(x => x.BlogCategory).ToList();

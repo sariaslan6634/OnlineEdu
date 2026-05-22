@@ -14,6 +14,11 @@ namespace OnlineEdu.Business.Concrete
             _blogRepository = blogRepository;
         }
 
+        public List<Blog> TGetBlogsByCategory(string categoryName)
+        {
+            return _blogRepository.GetBlogsByCategory(categoryName);
+        }
+
         public List<Blog> TGetBlogsWithCategories()
         {
             return _blogRepository.GetBlogsWithCategories();
