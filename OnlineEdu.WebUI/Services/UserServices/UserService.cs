@@ -52,36 +52,26 @@ namespace OnlineEdu.WebUI.Services.UserServices
 
         public async Task<string> LogInAsync(UserLoginDto userLoginDto)
         {
-            try
-            {
-                var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
-                if (user == null)
-                    return null;
-
-                var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.password, false, false);
-                if (!result.Succeeded)
-                    return null;
-                else
-                {
-                    var IsAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-                    if (IsAdmin)
-                        return "Admin";
-                    var IsTeacher = await _userManager.IsInRoleAsync(user, "Teacher");
-                    if (IsTeacher)
-                        return "Teacher";
-                    var IsStudent = await _userManager.IsInRoleAsync(user, "Student");
-                    if (IsStudent)
-                        return "Student";
-                }
+            var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
+            if (user == null)
                 return null;
-            }
-            catch (Exception)
+            var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.password, false, false);
+            if (!result.Succeeded)
+                return null;
+            else
             {
-
-                throw;
+                var IsAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+                if (IsAdmin)
+                    return "Admin";
+                var IsTeacher = await _userManager.IsInRoleAsync(user, "Teacher");
+                if (IsTeacher)
+                    return "Teacher";
+                var IsStudent = await _userManager.IsInRoleAsync(user, "Student");
+                if (IsStudent)
+                    return "Student";
             }
+            return null;
         }
-
         public Task<bool> LogOutAsync()
         {
             throw new NotImplementedException();

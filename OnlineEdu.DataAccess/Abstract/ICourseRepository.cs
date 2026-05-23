@@ -9,5 +9,8 @@ namespace OnlineEdu.DataAccess.Abstract
     {
         Task ShowOnHome(int id);
         Task DontShowOnHome(int id);
+        Task<List<Course>> GetAllCoursesWithCatagoriesAsync();
+        Task<List<Course>> GetCoursesByTeacherId(int id);
+
     }
 }

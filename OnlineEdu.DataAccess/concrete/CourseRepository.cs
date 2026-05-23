@@ -1,4 +1,5 @@
-﻿using OnlineEdu.DataAccess.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineEdu.DataAccess.Abstract;
 using OnlineEdu.DataAccess.Context;
 using OnlineEdu.DataAccess.Repositories;
 using OnlineEdu.Entity.Entities;
@@ -21,6 +22,16 @@ namespace OnlineEdu.DataAccess.concrete
             var value = await _educontext.Courses.FindAsync(id);
             value.IsActive = false;
             await _educontext.SaveChangesAsync();
+        }
+
+        public async Task<List<Course>> GetAllCoursesWithCatagoriesAsync()
+        {
+            return await _educontext.Courses.Include(x=>x.Category).ToListAsync();
+        }
+
+        public async Task<List<Course>> GetCoursesByTeacherId(int id)
+        {
+            return await _educontext.Courses.Include(x => x.Category).Where(x => x.AppUserId == id).ToListAsync();
         }
 
         public async Task ShowOnHome(int id)

@@ -12,10 +12,10 @@ namespace OnlineEdu.DTO.DTOS.Course
         public string ImageUrl { get; set; }
         public decimal Price { get; set; }
         public bool IsActive { get; set; }
-
+        public int AppUserId { get; set; }
 
         //category table injection
         public int CourseCategoryId { get; set; }
-        public List<ResultCourseCategoryDto> Courses { get; set; }
+        public ResultCourseCategoryDto Category { get; set; }
     }
 }

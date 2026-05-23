@@ -12,7 +12,5 @@ namespace OnlineEdu.DTO.DTOS.CourseCategory
         public string Icon { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
-
-        public List<ResultCourseDto> Courses { get; set; }
     }
 }

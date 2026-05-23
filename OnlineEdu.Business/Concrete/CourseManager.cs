@@ -20,6 +20,16 @@ namespace OnlineEdu.Business.Concrete
             await _courseRepository.DontShowOnHome(id);
         }
 
+        public async Task<List<Course>> TGetAllCoursesWithCatagoriesAsync()
+        {
+            return await _courseRepository.GetAllCoursesWithCatagoriesAsync();
+        }
+
+        public async Task<List<Course>> TGetCoursesByTeacherId(int id)
+        {
+            return await _courseRepository.GetCoursesByTeacherId(id);
+        }
+
         public async Task TShowOnHome(int id)
         {
             await _courseRepository.ShowOnHome(id);

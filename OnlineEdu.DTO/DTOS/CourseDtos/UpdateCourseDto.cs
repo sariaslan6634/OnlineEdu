@@ -14,9 +14,8 @@ namespace OnlineEdu.DTO.DTOS.Course
         public bool IsActive { get; set; }
 
 
+        public int AppUserId { get; set; }
         //category table injection
         public int CourseCategoryId { get; set; }
-
-        //category table injection
     }
 }

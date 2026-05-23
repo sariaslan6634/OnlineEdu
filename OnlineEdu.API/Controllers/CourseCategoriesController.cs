@@ -25,7 +25,8 @@ namespace OnlineEdu.API.Controllers
         public async Task<IActionResult> Get()
         {
             var values = await _courseCategoryService.TGetListAsync();
-            return Ok(values);
+            var courseCategories = _mapper.Map<List<ResultCourseCategoryDto>>(values);
+            return Ok(courseCategories);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)

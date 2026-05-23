@@ -24,8 +24,9 @@ namespace OnlineEdu.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var values = await _courseService.TGetListAsync();
-            return Ok(values);
+            var values = await _courseService.TGetAllCoursesWithCatagoriesAsync();
+            var courses = _mapper.Map<List<ResultCourseDto>>(values);
+            return Ok(courses);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -73,6 +74,14 @@ namespace OnlineEdu.API.Controllers
         {
             var values = await _courseService.TGetFilteredListAsync(x => x.IsActive == true);
             return Ok(values);
+        }
+
+        [HttpGet("GetCoursesByTeacherId/{id}")]
+        public async Task<IActionResult> GetCoursesByTeacherId(int id)
+        {
+            var values = await _courseService.TGetCoursesByTeacherId(id);
+            var mappedValues = _mapper.Map<List<ResultCourseDto>>(values);
+            return Ok(mappedValues);
         }
     }
 }
