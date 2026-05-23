@@ -51,5 +51,13 @@ namespace OnlineEdu.API.Controllers
             await _blogService.TDeleteAsync(id);
             return Ok("Blog alanı silindi!");
         }
+
+        [HttpGet("GetBlogByWriterID/{id}")]
+        public async Task<IActionResult> GetBlogByWriterID(int id)
+        {
+            var values = await _blogService.TGetBlogsByWriterIdAsync(id);
+            var mappedValues = _mapper.Map<List<ResultBlogDto>>(values);
+            return Ok(mappedValues);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace OnlineEdu.Business.Abstract
     {
         List<Blog> TGetBlogsWithCategories();
         List<Blog> TGetBlogsByCategory(string categoryName);
+        Task<List<Blog>> TGetBlogsByWriterIdAsync(int id);
     }
 }

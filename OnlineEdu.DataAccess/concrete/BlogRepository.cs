@@ -23,6 +23,11 @@ namespace OnlineEdu.DataAccess.concrete
                 .Where(x => x.BlogCategory.Name == categoryName).ToList();
         }
 
+        public async Task<List<Blog>> GetBlogsByWriterIdAsync(int id)
+        {
+            return await _educontext.Blogs.Include(x => x.BlogCategory).Where(x => x.WriterId == id).ToListAsync();
+        }
+
         public List<Blog> GetBlogsWithCategories()
         {
             return _educontext.Blogs.Include(x => x.BlogCategory).ToList();
