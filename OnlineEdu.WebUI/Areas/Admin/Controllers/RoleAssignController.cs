@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineEdu.Entity.Entities;
@@ -10,14 +11,27 @@ using System.Data;
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/[controller]/[action]/{id?}")]
+    [Authorize(Roles = "Admin")]
     public class RoleAssignController(IUserService _userService, UserManager<AppUser> _userManager, RoleManager<AppRole> _roleManager) : Controller
     {
 
         public async Task<IActionResult> Index()
         {
-            var values = await _userService.GetAllUserAsync();
-            return View(values);
+            var users = await _userService.GetAllUserAsync();
+            var result = new List<ResultUserWithRolesDto>();
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                result.Add(new ResultUserWithRolesDto
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName =  user.LastName,
+                    UserName = user.UserName,
+                    Roles = roles.ToList()
+                });
+            }
+            return View(result);
         }
         [HttpGet]
         public async Task<IActionResult> AssignRole(int id)

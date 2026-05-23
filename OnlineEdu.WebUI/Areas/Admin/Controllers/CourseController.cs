@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineEdu.WebUI.DTOS.Course;
 using OnlineEdu.WebUI.DTOS.CourseCategory;
@@ -8,7 +9,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Route("[area]/[controller]/[action]/{id?}")]
+    [Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
         private readonly HttpClient _client = HttpClientInstance.CreateClient();

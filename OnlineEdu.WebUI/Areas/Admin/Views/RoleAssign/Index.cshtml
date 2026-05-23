@@ -1,5 +1,4 @@
-﻿@using OnlineEdu.Entity.Entities
-@model List<AppUser>
+﻿@model List<ResultUserWithRolesDto>
 
 @{
     ViewData["Title"] = "Kullanıcı Listesi";
@@ -256,6 +255,23 @@
                         <td>
                             <div class="desc-cell" title="@item.UserName">@item.UserName</div>
                         </td>
+                        <td>
+                            <div class="items-cell">
+                                @if (item.Roles.Any())
+                                {
+                                    @foreach (var role in item.Roles)
+                                    {
+                                        <span class="item-tag">@role</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span style="color:#b4b2a9; font-size:12px;">Rol yok</span>
+                                }
+                            </div>
+                        </td>
+
+
                         <td>
                             <div class="actions">
                                 <a asp-action="AssignRole"
