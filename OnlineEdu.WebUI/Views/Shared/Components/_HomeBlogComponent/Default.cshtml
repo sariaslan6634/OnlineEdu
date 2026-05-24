@@ -1,0 +1,40 @@
+﻿@model List<ResultBlogDto>
+
+
+<div class="home-blog-area section-padding30">
+    <div class="container">
+        <!-- Section Tittle -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-tittle text-center mb-50">
+                    <span>Blogumuzdan En Son Yayınlananlar</span>
+                    <h2>Son yayınlanan boglara göz at</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="home-blog-single mb-30">
+                        <div class="blog-img-cap">
+                            <div class="blog-img">
+                                <img src="@item.ImageUrl" alt="" style="width:500px;height=300px">
+                                <!-- Blog date -->
+                                <div class="blog-date text-center">
+                                    <span>@item.BlogDate.ToString("dd")</span>
+                                    <p>@item.BlogDate.ToString("MMMM")</p>
+                                </div>
+                            </div>
+                            <div class="blog-cap">
+                                <p>|   @item.BlogCategory.Name</p>
+                                <h3><a href="#">@item.Title</a></h3>
+                                <a href="#" class="more-btn">Devamını oku »</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            }
+        </div>
+    </div>
+</div>

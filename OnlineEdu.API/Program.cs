@@ -25,6 +25,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<MessageMapping>();
     cfg.AddProfile<SocialMediaMapping>();
     cfg.AddProfile<SubscriberMapping>();
+    cfg.AddProfile<TeacherSocialMediaMapping>();
     cfg.AddProfile<TestimonialMapping>();
 });
 

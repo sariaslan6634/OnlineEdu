@@ -263,13 +263,17 @@
                             <div class="img-pair">
                                 @if (!string.IsNullOrEmpty(item.ImageUrl))
                                 {
-                                    <img class="img-thumb" src="@item.ImageUrl" alt="Resim 1"
-                                         onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
+                                    <img class="img-thumb"
+                                         src="@item.ImageUrl"
+                                         alt="Resim 1"
+                                         onerror="this.outerHTML=`<div class='img-placeholder'><i class='bi bi-image'></i></div>`" />
                                 }
                                 else
                                 {
-                                    <img class="img-thumb" src="https://www.aluext.com.tr/wp-content/uploads/2022/11/resim-yok-1.png" alt="Resim 1" />
-                                }                                
+                                    <img class="img-thumb"
+                                         src="https://www.aluext.com.tr/wp-content/uploads/2022/11/resim-yok-1.png"
+                                         alt="Resim 1" />
+                                }
                             </div>
                         </td>
                         <td>
@@ -277,7 +281,7 @@
                         </td>
                         <td>
                             <div class="desc-cell">
-                                @(item.Content?.Length > 30
+                                @(item.Content?.Length > 50
                                     ? item.Content.Substring(0, 50) + "..."
                                     : item.Content)
                             </div>

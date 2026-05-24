@@ -77,5 +77,11 @@ namespace OnlineEdu.API.Controllers
             var values = await _courseCategoryService.TGetFilteredListAsync(x => x.IsActive == true);
             return Ok(values);
         }
+        [HttpGet("GetCourseCategoryCount")]
+        public async Task<IActionResult> GetCourseCategoryCount()
+        {
+            var values = await _courseCategoryService.TCountAsync();
+            return Ok(values);
+        }
     }
 }

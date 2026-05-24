@@ -266,15 +266,10 @@
 
                         <td>
                             <div class="actions">
-
-                                <a asp-action="DeleteBanner"
-                                   asp-controller="Banner"
-                                   asp-area="Admin"
-                                   asp-route-id="@item.BannerId"
-                                   class="btn-del">
+                                <button onclick="deleteBanner(@item.BannerId)" class="btn-del">
                                     <i class="bi bi-trash3"></i> Sil
-                                </a>
-
+                                </button>
+                                
                                 <a asp-action="UpdateBanner"
                                    asp-controller="Banner"
                                    asp-area="Admin"
@@ -291,4 +286,21 @@
         </tbody>
     </table>
 </div>
-
+<script>
+    function deleteBanner(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu işlemi geri alamazsınız.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+               window.location.href ="/Admin/About/DeleteAbout/" + id;
+            }
+        });
+    }
+</script>

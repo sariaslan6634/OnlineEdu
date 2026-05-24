@@ -18,6 +18,13 @@ namespace OnlineEdu.API.Controllers
             var blogs = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(blogs);
         }
+        [HttpGet("GetLast4Blogs")]
+        public async Task<IActionResult> GetLast4Blogs()
+        {
+            var values = _blogService.TGetLast4BlogsWithCategories();
+            var blogs = _mapper.Map<List<ResultBlogDto>>(values);
+            return Ok(blogs);
+        }
         [HttpGet("BlogByCategory")]
         public async Task<IActionResult> BlogByCategory(string categoryName)
         {
@@ -58,6 +65,12 @@ namespace OnlineEdu.API.Controllers
             var values = await _blogService.TGetBlogsByWriterIdAsync(id);
             var mappedValues = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(mappedValues);
+        }
+        [HttpGet("GetBlogCount")]
+        public async Task<IActionResult> GetBlogCount()
+        {
+            var blogCount = await _blogService.TCountAsync();
+            return Ok(blogCount);
         }
     }
 }

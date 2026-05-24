@@ -31,7 +31,15 @@ namespace OnlineEdu.DataAccess.concrete
         public List<Blog> GetBlogsWithCategories()
         {
             return _educontext.Blogs.Include(x => x.BlogCategory).ToList();
+        }
 
+        public List<Blog> GetLast4BlogsWithCategories()
+        {
+            return _educontext.Blogs
+                .Include(x => x.BlogCategory)
+                .OrderByDescending(x => x.BlogId)
+                .Take(4)
+                .ToList();
         }
     }
 }
