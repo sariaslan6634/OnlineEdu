@@ -5,6 +5,7 @@ using OnlineEdu.DataAccess.Repositories;
 using OnlineEdu.Entity.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace OnlineEdu.DataAccess.concrete
@@ -26,7 +27,21 @@ namespace OnlineEdu.DataAccess.concrete
 
         public async Task<List<Course>> GetAllCoursesWithCatagoriesAsync()
         {
-            return await _educontext.Courses.Include(x=>x.Category).ToListAsync();
+            return await _educontext.Courses.Include(x=>x.Category).Include(x => x.AppUser).ToListAsync();
+        }
+
+        public async Task<List<Course>> GetAllCoursesWithCatagoriesAsync(Expression<Func<Course, bool>> filter = null)
+        {
+            IQueryable<Course> values = _context.Courses
+                .Include(x => x.Category)
+                .Include(x => x.AppUser).AsQueryable();
+
+            if (filter != null)
+            {
+                values = values.Where(filter);
+            }
+
+            return await values.ToListAsync();
         }
 
         public async Task<List<Course>> GetCoursesByTeacherId(int id)

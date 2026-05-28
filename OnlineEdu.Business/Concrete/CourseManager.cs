@@ -3,6 +3,7 @@ using OnlineEdu.DataAccess.Abstract;
 using OnlineEdu.Entity.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace OnlineEdu.Business.Concrete
@@ -23,6 +24,11 @@ namespace OnlineEdu.Business.Concrete
         public async Task<List<Course>> TGetAllCoursesWithCatagoriesAsync()
         {
             return await _courseRepository.GetAllCoursesWithCatagoriesAsync();
+        }
+
+        public async Task<List<Course>> TGetAllCoursesWithCatagoriesAsync(Expression<Func<Course, bool>> filter = null)
+        {
+            return await _courseRepository.GetAllCoursesWithCatagoriesAsync(filter);
         }
 
         public async Task<List<Course>> TGetCoursesByTeacherId(int id)
