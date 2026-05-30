@@ -11,13 +11,16 @@ namespace OnlineEdu.API.Controllers
     [ApiController]
     public class SubscribersController : ControllerBase
     {
-        private readonly IGenericService<Subscriber> _subscriberService;
+        private readonly ISubscriberService _subscriberService;
         private readonly IMapper _mapper;
-        public SubscribersController(IGenericService<Subscriber> subscriberService, IMapper mapper)
+
+        public SubscribersController(ISubscriberService subscriberService, IMapper mapper)
         {
             _subscriberService = subscriberService;
             _mapper = mapper;
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -32,12 +35,26 @@ namespace OnlineEdu.API.Controllers
             return Ok(value);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateSubscriberDto dto)
+        public async Task<IActionResult> Subscribe(CreateSubscriberDto dto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var existing = await _subscriberService.TGetByEmailAsync(dto.Email);
+            if (existing != null)
+                return BadRequest("Zaten abone oldunuz.");
+
             var value = _mapper.Map<Subscriber>(dto);
             await _subscriberService.TCreateAsync(value);
-            return Ok("Takipciler alanı eklendi!");
+            return Ok("Abone olma işlemi başarılı!");
         }
+        //[HttpPost]
+        //public async Task<IActionResult> Create(CreateSubscriberDto dto)
+        //{
+        //    var value = _mapper.Map<Subscriber>(dto);
+        //    await _subscriberService.TCreateAsync(value);
+        //    return Ok("Takipciler alanı eklendi!");
+        //}
         [HttpPut]
         public async Task<IActionResult> Update(UpdateSubscriberDto dto)
         {

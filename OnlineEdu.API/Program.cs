@@ -39,6 +39,7 @@ builder.Services.AddDbContext<OnlineEduContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
  });
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

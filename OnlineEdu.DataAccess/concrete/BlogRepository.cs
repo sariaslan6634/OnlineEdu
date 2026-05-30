@@ -30,7 +30,7 @@ namespace OnlineEdu.DataAccess.concrete
 
         public List<Blog> GetBlogsWithCategories()
         {
-            return _educontext.Blogs.Include(x => x.BlogCategory).ToList();
+            return _educontext.Blogs.Include(x => x.BlogCategory).Include(x=>x.Writer).ToList();
         }
 
         public List<Blog> GetLast4BlogsWithCategories()

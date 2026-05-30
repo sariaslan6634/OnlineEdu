@@ -1,0 +1,69 @@
+﻿@model CreateSubscriberDto
+
+<aside class="single_sidebar_widget newsletter_widget">
+    <h4 class="widget_title" style="color: #2d2d2d;">Abone Ol</h4>
+    <form id="subscribeForm">
+        <div class="form-group">
+            <input type="email" id="Email" class="form-control" onfocus="this.placeholder = ''"
+                   onblur="this.placeholder = 'Emailinizi yazın'" placeholder='Emailinizi yazın'>
+            <span id="emailError" class="text-danger small"></span>
+        </div>
+        <button onclick="Subscribe(event)" class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn mt-2"
+                type="button">
+            Abone ol
+        </button>
+    </form>
+</aside>
+
+<script>
+    function Subscribe(event) {
+        var email = document.getElementById("Email").value;
+        var errorSpan = document.getElementById("emailError");
+
+        // Email boşsa
+        if (!email) {
+            errorSpan.innerText = "Email giriniz.";
+            return;
+        } else {
+            errorSpan.innerText = "";
+        }
+
+        // Emin misin popup
+        Swal.fire({
+            title: 'Abone olmak istediğinize emin misiniz?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Abone Ol',
+            cancelButtonText: 'İptal'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const response = await fetch('/Blog/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, IsActive: true })
+                });
+                const message = await response.text();
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Başarılı!',
+                        text: message,
+                        icon: 'success',
+                        confirmButtonText: 'Tamam'
+                    });
+
+                    document.getElementById("Email").value = "";
+                }
+                else {
+
+                    Swal.fire({
+                        title: 'Hata!',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'Tamam'
+                    });
+                }
+            }
+        });
+    }
+</script>

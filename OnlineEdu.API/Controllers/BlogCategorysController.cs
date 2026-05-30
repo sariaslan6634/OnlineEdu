@@ -9,20 +9,12 @@ namespace OnlineEdu.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogCategorysController : ControllerBase
+    public class BlogCategorysController(IBlogCategoryService _blogCategoryService, IMapper _mapper) : ControllerBase
     {
-        private readonly IGenericService<BlogCategory> _blogCategoryService;
-        private readonly IMapper _mapper;
-
-        public BlogCategorysController (IGenericService<BlogCategory> blogCategoryService, IMapper mapper)
-        {
-            _blogCategoryService = blogCategoryService;
-            _mapper = mapper;
-        }
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var results = await _blogCategoryService.TGetListAsync();
+            var results = await _blogCategoryService.TGetCategoriesWithBlogs();
             return Ok(results);
         }
         [HttpGet("{id}")]
