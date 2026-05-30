@@ -19,6 +19,11 @@ namespace OnlineEdu.Business.Concrete
             return _blogRepository.GetBlogsByCategory(categoryName);
         }
 
+        public async Task<List<Blog>> TGetBlogsByCategoryId(int id)
+        {
+            return await _blogRepository.GetBlogsByCategoryId(id);
+        }
+
         public Task<List<Blog>> TGetBlogsByWriterIdAsync(int id)
         {
             return _blogRepository.GetBlogsByWriterIdAsync(id);
@@ -27,6 +32,11 @@ namespace OnlineEdu.Business.Concrete
         public List<Blog> TGetBlogsWithCategories()
         {
             return _blogRepository.GetBlogsWithCategories();
+        }
+
+        public async Task<Blog> TGetBlogsWithCategory(int id)
+        {
+            return await _blogRepository.GetBlogsWithCategory(id);
         }
 
         public List<Blog> TGetLast4BlogsWithCategories()

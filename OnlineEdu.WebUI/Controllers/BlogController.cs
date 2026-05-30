@@ -15,24 +15,23 @@ namespace OnlineEdu.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Subscribe([FromBody] CreateSubscriberDto dto)
+        public async Task<IActionResult> Subscribe(CreateSubscriberDto model)
         {
-            //await _client.PostAsJsonAsync("subscribers",createSubscriberDto);
-            //return NoContent();
-            var response = await _client.PostAsJsonAsync("subscribers", dto);
-
-            var message = await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
-                return BadRequest(message);
-
-            return Ok(message);
+            await _client.PostAsJsonAsync("subscribers", model);
+            return NoContent();
         }
-
-        [HttpGet("GetBlogById/{id}")]
-        public async Task<IActionResult> GetBlogById(int id)
+        public async Task<IActionResult> BlogDetails(int id)
         {
-            return View();
+            var blog = await _client.GetFromJsonAsync<ResultBlogDto>("blogs/" + id);
+            return View(blog);
+        }
+        public async Task<IActionResult> BlogsByCategory(int id)
+        {
+            var blogs = await _client.GetFromJsonAsync<List<ResultBlogDto>>("blogs/GetBlogsByCategoryId/" + id);
+
+            ViewBag.categoryName = blogs.Select(x => x.BlogCategory.Name).FirstOrDefault();
+
+            return View(blogs);
         }
     }
 }

@@ -15,8 +15,10 @@ namespace OnlineEdu.WebUI.ViewComponents.Blog
             var blogCategories = (from x in categoryLisyt
                                   select new BlogCategoryWithCountViewModal
                                   {
+
                                       CategoryName = x.Name,
-                                      BlogCount = x.Blogs.Count
+                                      BlogCount = x.Blogs.Count,
+                                      BlogCategoryId = x.BlogCategoryId
                                   }).ToList();
 
             return View(blogCategories);

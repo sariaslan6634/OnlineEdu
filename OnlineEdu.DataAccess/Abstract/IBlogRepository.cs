@@ -8,6 +8,8 @@ namespace OnlineEdu.DataAccess.Abstract
     public interface IBlogRepository : IRepository<Blog>
     {
         List<Blog> GetBlogsWithCategories();
+        Task<List<Blog>> GetBlogsByCategoryId(int id);
+        Task<Blog> GetBlogsWithCategory(int id);
         List<Blog> GetLast4BlogsWithCategories();
         List<Blog> GetBlogsByCategory(string categoryName);
         Task<List<Blog>> GetBlogsByWriterIdAsync(int id);

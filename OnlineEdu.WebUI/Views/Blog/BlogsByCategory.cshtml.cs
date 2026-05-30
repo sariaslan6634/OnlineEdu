@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace OnlineEdu.WebUI.Views.Blog
 {
-    public class GetBlogByIdModel : PageModel
+    public class BlogsByCategoryModel : PageModel
     {
         public void OnGet()
         {

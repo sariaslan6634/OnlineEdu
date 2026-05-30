@@ -23,6 +23,14 @@ namespace OnlineEdu.DataAccess.concrete
                 .Where(x => x.BlogCategory.Name == categoryName).ToList();
         }
 
+        public async Task<List<Blog>> GetBlogsByCategoryId(int id)
+        {
+            return await _context.Blogs.
+                Include(x => x.BlogCategory).
+                Include(x => x.Writer).
+                Where(x => x.BlogCategoryId == id).ToListAsync();
+        }
+
         public async Task<List<Blog>> GetBlogsByWriterIdAsync(int id)
         {
             return await _educontext.Blogs.Include(x => x.BlogCategory).Where(x => x.WriterId == id).ToListAsync();
@@ -31,6 +39,15 @@ namespace OnlineEdu.DataAccess.concrete
         public List<Blog> GetBlogsWithCategories()
         {
             return _educontext.Blogs.Include(x => x.BlogCategory).Include(x=>x.Writer).ToList();
+        }
+
+        public async Task<Blog> GetBlogsWithCategory(int id)
+        {
+            return await _educontext.Blogs.
+                Include(x => x.BlogCategory).
+                Include(x => x.Writer).
+                ThenInclude(x=>x.TeacherSocials).
+                FirstOrDefaultAsync(x => x.BlogId == id);
         }
 
         public List<Blog> GetLast4BlogsWithCategories()

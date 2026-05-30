@@ -35,7 +35,7 @@ namespace OnlineEdu.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var value = await _blogService.TGetByIdAsync(id);
+            var value = await _blogService.TGetBlogsWithCategory(id);
             return Ok(value);
         }
         [HttpPost]
@@ -71,6 +71,12 @@ namespace OnlineEdu.API.Controllers
         {
             var blogCount = await _blogService.TCountAsync();
             return Ok(blogCount);
+        }
+        [HttpGet("GetBlogsByCategoryId/{id}")]
+        public async Task<IActionResult> GetBlogsByCategoryId(int id)
+        {
+            var blogs = await _blogService.TGetBlogsByCategoryId(id);
+            return Ok(blogs);
         }
     }
 }
