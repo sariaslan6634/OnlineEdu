@@ -1,45 +1,11 @@
-﻿@model List<ResultCourseDto>
+﻿@model List<AppUser>
 
 @{
-    ViewData["Title"] = "Kurslar";
+    ViewData["Title"] = "Öğrenciler";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <style>
-    .badge-aktif {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: #EAF3DE;
-        color: #3B6D11;
-        border: 0.5px solid #97C459;
-        border-radius: 20px;
-        padding: 4px 12px;
-        font-size: 12px;
-        font-weight: 500;
-    }
-
-    .badge-pasif {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: #FCEBEB;
-        color: #A32D2D;
-        border: 0.5px solid #F09595;
-        border-radius: 20px;
-        padding: 4px 12px;
-        font-size: 12px;
-        font-weight: 500;
-    }
-
-    .badge-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: currentColor;
-        display: inline-block;
-    }
-
     .page-header {
         display: flex;
         align-items: center;
@@ -248,33 +214,21 @@
 <div class="page-header">
     <div style="display:flex; align-items:center; gap:10px;">
         <h4 class="page-title">
-            <i class="bi bi-images"></i>
-            Kurs kayıtları
+            <i class="bi bi-person-circle"></i>
+            Öğrenci Kayıtları
         </h4>
         <span class="badge-count">@Model.Count kayıt</span>
     </div>
-
-    <a asp-action="CreateCourse"
-       asp-controller="Course"
-       asp-area="Admin"
-       class="btn-add">
-        <i class="bi bi-plus-lg"></i> Yeni Kurs ekle
-    </a>
 </div>
-
 
 <div class="tbl-wrap">
     <table>
         <thead>
             <tr>
                 <th style="width:44px;">#</th>
-                <th>Resim</th>
-                <th>Kurs Adı</th>
-                <th>Fiyat</th>
-                <th>Kategori</th>
-                <th>Eğitmen</th>
-                <th>Gösterilme Durumu</th>
-                <th style="width:150px; text-align:right;">İşlemler</th>
+                <th style="width:120px;">Ad Soyad</th>
+                <th style="width:120px;">Kullanıcı Adı</th>
+                <th style="width:120px;">Email Adresi</th>
             </tr>
         </thead>
         <tbody>
@@ -282,7 +236,7 @@
             {
                 <tr>
                     <td colspan="5" style="text-align:center; padding:2.5rem; color:#b4b2a9; font-size:13px;">
-                        Henüz blog eklenmedi.
+                        Henüz Öğrenci kaydı eklenmedi.
                     </td>
                 </tr>
             }
@@ -295,61 +249,13 @@
                     <tr>
                         <td class="num-cell">@count</td>
                         <td>
-                            <div class="img-pair">
-                                @if (!string.IsNullOrEmpty(item.ImageUrl))
-                                {
-                                    <img class="img-thumb" src="@item.ImageUrl" alt="Resim 1"
-                                         onerror="this.src='https://www.aluext.com.tr/wp-content/uploads/2022/11/resim-yok-1.png'" />
-                                }
-                                else
-                                {
-                                    <img class="img-thumb" src="https://www.aluext.com.tr/wp-content/uploads/2022/11/resim-yok-1.png" alt="Resim 1" />
-                                }
-                            </div>
+                            <div class="desc-cell" title="@item.FirstName">@item.FirstName @item.LastName</div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Name</div>
+                            <div class="desc-cell" title="@item.UserName">@item.UserName</div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Price TL</div>
-                        </td>
-                        <td>
-                            <div class="desc-cell">@item.Category.Name</div>
-                        </td>
-                        <td>
-                            <div class="desc-cell">@item.AppUser.FirstName @item.AppUser.LastName</div>
-                        </td>
-                        <td>
-                            @if (item.IsActive)
-                            {
-                                <a href="@Url.Action("DontShowOnHome", "Course", new { area = "Admin", id = item.CourseId })">
-                                    <span class="badge-aktif">
-                                        <span class="badge-dot"></span> Aktif
-                                    </span>
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="@Url.Action("ShowOnHome", "Course", new { area = "Admin", id = item.CourseId })">
-                                    <span class="badge-pasif">
-                                        <span class="badge-dot"></span> Pasif
-                                    </span>
-                                </a>
-                            }
-                        </td>
-                        <td>
-                            <div class="actions">
-                                <button onclick="deleteCourse(@item.CourseId)" class="btn-del">
-                                    <i class="bi bi-trash3"></i> Sil
-                                </button>
-                                <a asp-action="UpdateCourse"
-                                   asp-controller="Course"
-                                   asp-area="Admin"
-                                   asp-route-id="@item.CourseId"
-                                   class="btn-edit">
-                                    <i class="bi bi-pencil"></i> Güncelle
-                                </a>
-                            </div>
+                            <div class="desc-cell" title="@item.Email">@item.Email</div>
                         </td>
                     </tr>
                 }
@@ -357,22 +263,3 @@
         </tbody>
     </table>
 </div>
-
-<script>
-    function deleteCourse(id) {
-        Swal.fire({
-            title: 'Silmek istediğinize emin misiniz?',
-            text: 'Bu işlemi geri alamazsınız.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Evet, sil',
-            cancelButtonText: 'İptal',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d'
-        }).then((result) => {
-            if (result.isConfirmed) {
-               window.location.href ="/Admin/Course/DeleteCourse/" + id;
-            }
-        });
-    }
-</script>

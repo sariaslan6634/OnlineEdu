@@ -1,4 +1,5 @@
 ﻿using OnlineEdu.DTO.DTOS.CourseCategory;
+using OnlineEdu.Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,7 @@ namespace OnlineEdu.DTO.DTOS.Course
         public decimal Price { get; set; }
         public bool IsActive { get; set; }
         public int AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
 
         //category table injection
         public int CourseCategoryId { get; set; }
