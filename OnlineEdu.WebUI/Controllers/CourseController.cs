@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.Course;
+using OnlineEdu.DTO.DTOS.Course;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Controllers

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.RoleDtos;
+using OnlineEdu.DTO.DTOS.RoleDtos;
 using OnlineEdu.WebUI.Services.RoleServices;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers

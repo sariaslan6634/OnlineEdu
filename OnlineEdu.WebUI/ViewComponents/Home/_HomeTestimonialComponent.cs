@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.TestimonialDtos;
+using OnlineEdu.DTO.DTOS.TestimonialDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.ViewComponents.Home

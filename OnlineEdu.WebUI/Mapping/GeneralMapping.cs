@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.RoleDtos;
-using OnlineEdu.WebUI.DTOS.TeacherSocialDtos;
-using OnlineEdu.WebUI.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOS.RoleDtos;
+using OnlineEdu.DTO.DTOS.TeacherSocialDtos;
+using OnlineEdu.DTO.DTOS.UserDtos;
 
 namespace OnlineEdu.WebUI.Mapping
 {

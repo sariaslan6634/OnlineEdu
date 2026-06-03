@@ -1,4 +1,4 @@
-﻿using OnlineEdu.WebUI.DTOS.RoleDtos;
+﻿using OnlineEdu.DTO.DTOS.RoleDtos;
 
 namespace OnlineEdu.WebUI.Services.RoleServices
 {

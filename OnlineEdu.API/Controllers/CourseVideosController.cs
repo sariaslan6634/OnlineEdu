@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Business.Abstract;
@@ -15,13 +16,15 @@ namespace OnlineEdu.API.Controllers
         public async Task<IActionResult> Get()
         {
             var courseVideos = await _courseVideoService.TGetListAsync();
-            return Ok(courseVideos);
+            var newValue = _mapper.Map<List<ResultCourseVideoDto>>(courseVideos);
+            return Ok(newValue);
         }
         [HttpGet("GetCourseVideosByCourseId/{id}")]
         public async Task<IActionResult> GetCourseVideosByCourseId(int id)
         {
             var courseVideos = await _courseVideoService.TGetFilteredListAsync(x => x.CourseId == id);
-            return Ok(courseVideos);
+            var newValue = _mapper.Map<List<ResultCourseVideoDto>>(courseVideos);
+            return Ok(newValue);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +35,8 @@ namespace OnlineEdu.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(courseVideo);
+            var newValue = _mapper.Map<ResultCourseVideoDto>(courseVideo);
+            return Ok(newValue);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

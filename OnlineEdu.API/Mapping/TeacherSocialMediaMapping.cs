@@ -10,9 +10,9 @@ namespace OnlineEdu.API.Mapping
     {
         public TeacherSocialMediaMapping()
         {
-            CreateMap<TeacherSocial, CreateTeacherSocialMedia>().ReverseMap();
-            CreateMap<TeacherSocial, UpdateTeacherSocialMedia>().ReverseMap();
-            CreateMap<TeacherSocial, ResultTeacherSocialMedia>().ReverseMap();
+            CreateMap<TeacherSocial, CreateTeacherSocialDto>().ReverseMap();
+            CreateMap<TeacherSocial, UpdateTeacherSocialDto>().ReverseMap();
+            CreateMap<TeacherSocial, ResultTeacherSocialDto>().ReverseMap();
         }
     }
 }

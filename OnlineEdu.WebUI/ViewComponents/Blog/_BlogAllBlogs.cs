@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.BlogDtos;
+using OnlineEdu.DTO.DTOS.BlogDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.ViewComponents.Blog

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.Course;
+using OnlineEdu.DTO.DTOS.Course;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.ViewComponents.Home

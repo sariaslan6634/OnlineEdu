@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.BlogCategoryDtos;
-using OnlineEdu.WebUI.DTOS.BlogDtos;
+using OnlineEdu.DTO.DTOS.BlogCategoryDtos;
+using OnlineEdu.DTO.DTOS.BlogDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
@@ -36,7 +36,7 @@ namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
         }
         public async Task<IActionResult> DeleteMyBlog(int id)
         {
-            await _client.DeleteAsync("blogs" + id);
+            await _client.DeleteAsync("blogs/" + id);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> CreateBlog()

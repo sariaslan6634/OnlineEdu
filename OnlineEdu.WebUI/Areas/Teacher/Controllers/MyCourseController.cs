@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineEdu.DTO.DTOS.CourseVideoDtos;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.Course;
-using OnlineEdu.WebUI.DTOS.CourseCategory;
+using OnlineEdu.DTO.DTOS.Course;
+using OnlineEdu.DTO.DTOS.CourseCategory;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Teacher.Controllers

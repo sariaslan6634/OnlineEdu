@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Business.Abstract;
 using OnlineEdu.DTO.DTOS.ContactDtos;
@@ -23,7 +25,8 @@ namespace OnlineEdu.API.Controllers
         public async Task<IActionResult> Get()
         {
             var results = await _contactService.TGetListAsync();
-            return Ok(results);
+            var mapperValue = _mapper.Map<List<Contact>>(results);
+            return Ok(mapperValue);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -31,7 +34,9 @@ namespace OnlineEdu.API.Controllers
             var result = await _contactService.TGetByIdAsync(id);
             if (result == null)
                 return NotFound();
-            return Ok(result);
+
+            var mapperValue = _mapper.Map<Contact>(result);
+            return Ok(mapperValue);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateContactDto dto)

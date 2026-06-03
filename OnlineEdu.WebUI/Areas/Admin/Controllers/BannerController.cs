@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.BannerDtos;
+using OnlineEdu.DTO.DTOS.BannerDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
@@ -18,8 +18,8 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> DeleteBanner(int id)
         {
-            var value = await _client.DeleteAsync($"banners/{id}");
-            return RedirectToAction(nameof(Index));
+            await _client.DeleteAsync("banners/" + id);
+            return RedirectToAction("Index");
         }
         public IActionResult CreateBanner()
         {

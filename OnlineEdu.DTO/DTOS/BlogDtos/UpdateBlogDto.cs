@@ -1,4 +1,5 @@
 ﻿using OnlineEdu.DTO.DTOS.BlogCategoryDtos;
+using OnlineEdu.DTO.DTOS.UserDtos;
 using OnlineEdu.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace OnlineEdu.DTO.DTOS.BlogDtos
         public string ImageUrl { get; set; }
         public DateTime BlogDate { get; set; }
         public int BlogCategoryId { get; set; }
-        public int WriterId { get; set; }
+        public int? WriterId { get; set; }
     }
 }

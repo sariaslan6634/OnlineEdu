@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.BlogCategoryDtos;
-using OnlineEdu.WebUI.DTOS.BlogDtos;
+using OnlineEdu.DTO.DTOS.BlogCategoryDtos;
+using OnlineEdu.DTO.DTOS.BlogDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
@@ -25,11 +25,11 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         {
             var categoryList = await _client.GetFromJsonAsync<List<ResultBlogCategoryDto>>("BlogCategorys");
             List<SelectListItem> categories = (from x in categoryList
-                                                select new SelectListItem
-                                                {
-                                                    Text = x.Name,
-                                                    Value = x.BlogCategoryId.ToString()
-                                                }).ToList();
+                                               select new SelectListItem
+                                               {
+                                                   Text = x.Name,
+                                                   Value = x.BlogCategoryId.ToString()
+                                               }).ToList();
             ViewBag.categories = categories;
         }
 

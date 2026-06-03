@@ -8,7 +8,8 @@ namespace OnlineEdu.DTO.DTOS.UserDtos
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? ImageUrl { get; set; }
-        public List<ResultTeacherSocialMedia> TeacherSocials { get; set; }
+        public string Email { get; set; }
+        public List<ResultTeacherSocialDto> TeacherSocials { get; set; }
 
     }
 }

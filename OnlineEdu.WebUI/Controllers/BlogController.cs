@@ -1,8 +1,8 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.DataAccess.Abstract;
-using OnlineEdu.WebUI.DTOS.BlogDtos;
-using OnlineEdu.WebUI.DTOS.SubscriberDtos;
+using OnlineEdu.DTO.DTOS.BlogDtos;
+using OnlineEdu.DTO.DTOS.SubscriberDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Controllers

@@ -1,4 +1,5 @@
 ﻿using OnlineEdu.DTO.DTOS.Course;
+using OnlineEdu.DTO.DTOS.UserDtos;
 using OnlineEdu.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,6 @@ namespace OnlineEdu.DTO.DTOS.CourseRegisterDtos
 
         //öğrenci tablosu
         public int AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public ResultUserDto AppUser { get; set; }
     }
 }

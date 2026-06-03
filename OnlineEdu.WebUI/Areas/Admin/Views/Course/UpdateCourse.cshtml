@@ -158,8 +158,9 @@
     }
 </style>
 
-<form method="post">
+<form method="post" asp-route-id="@Model.CourseId">
     <input type="hidden" asp-for="CourseId" />
+    <input type="hidden" asp-for="AppUserId" />
     <div class="section-card">
 
         <div class="section-label">

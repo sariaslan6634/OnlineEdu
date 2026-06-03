@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOS.UserDtos;
 
 namespace OnlineEdu.WebUI.Services.UserServices
 {

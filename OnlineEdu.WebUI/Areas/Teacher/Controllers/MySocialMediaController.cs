@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.SocialMediaDto;
-using OnlineEdu.WebUI.DTOS.TeacherSocialDtos;
+using OnlineEdu.DTO.DTOS.SocialMediaDto;
+using OnlineEdu.DTO.DTOS.TeacherSocialDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Teacher.Controllers

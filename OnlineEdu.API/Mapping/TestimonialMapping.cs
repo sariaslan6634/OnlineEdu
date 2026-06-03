@@ -9,6 +9,7 @@ namespace OnlineEdu.API.Mapping
         public TestimonialMapping()
         {
             CreateMap<CreateTestimonialDto, Testimonial>().ReverseMap();
+            CreateMap<ResultTestimonialDto, Testimonial>().ReverseMap();
             CreateMap<UpdateTestimonialDto, Testimonial>().ReverseMap();
         }
     }

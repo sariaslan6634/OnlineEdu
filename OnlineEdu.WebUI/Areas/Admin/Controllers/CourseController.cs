@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OnlineEdu.WebUI.DTOS.Course;
-using OnlineEdu.WebUI.DTOS.CourseCategory;
+using OnlineEdu.DTO.DTOS.Course;
+using OnlineEdu.DTO.DTOS.CourseCategory;
+using OnlineEdu.Entity.Entities;
 using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.Services.UserServices;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
@@ -13,6 +16,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     public class CourseController : Controller
     {
         private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly UserManager<AppUser> _userManager;
+
+        public CourseController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
 
         private async Task CourseCategoryDropDown()
         {
@@ -44,6 +53,8 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CreateCourseDto dto)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            dto.AppUserId = user.Id;
             await _client.PostAsJsonAsync("Courses", dto);
             return RedirectToAction(nameof(Index));
         }

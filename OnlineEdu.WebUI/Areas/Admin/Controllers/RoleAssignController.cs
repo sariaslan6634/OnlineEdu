@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOS.UserDtos;
 using OnlineEdu.WebUI.Services.UserServices;
 using System.Collections.Immutable;
 using System.Data;

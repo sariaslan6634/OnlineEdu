@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using OnlineEdu.Business.Abstract;
 using OnlineEdu.DTO.DTOS.BlogDtos;
 using OnlineEdu.Entity.Entities;
@@ -29,14 +30,17 @@ namespace OnlineEdu.API.Controllers
         public async Task<IActionResult> BlogByCategory(string categoryName)
         {
             var values = _blogService.TGetBlogsByCategory(categoryName);
-            return Ok(values);
+            var blogs = _mapper.Map<List<ResultBlogDto>>(values);
+            return Ok(blogs);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var value = await _blogService.TGetBlogsWithCategory(id);
-            return Ok(value);
+            var blogs = _mapper.Map<ResultBlogDto>(value);
+
+            return Ok(blogs);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBlogDto blogDto)
@@ -76,7 +80,8 @@ namespace OnlineEdu.API.Controllers
         public async Task<IActionResult> GetBlogsByCategoryId(int id)
         {
             var blogs = await _blogService.TGetBlogsByCategoryId(id);
-            return Ok(blogs);
+            var mappedValues = _mapper.Map<List<ResultBlogDto>>(blogs);
+            return Ok(mappedValues);
         }
     }
 }

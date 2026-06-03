@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.BannerDtos;
+using OnlineEdu.DTO.DTOS.BannerDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.ViewComponents.Home

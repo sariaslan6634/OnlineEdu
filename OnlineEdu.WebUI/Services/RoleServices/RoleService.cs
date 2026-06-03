@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.RoleDtos;
+using OnlineEdu.DTO.DTOS.RoleDtos;
 using System.Data;
 
 namespace OnlineEdu.WebUI.Services.RoleServices

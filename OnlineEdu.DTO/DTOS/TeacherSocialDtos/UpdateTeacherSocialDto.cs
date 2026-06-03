@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineEdu.DTO.DTOS.TeacherSocialDtos
 {
-    public class ResultTeacherSocialMedia
+    public class UpdateTeacherSocialDto
     {
         public int TeacherSocialId { get; set; }
         public string Url { get; set; }
@@ -15,6 +15,5 @@ namespace OnlineEdu.DTO.DTOS.TeacherSocialDtos
         public string Icon { get; set; }
 
         public int TeacherId { get; set; }
-        public AppUser Teacher { get; set; }
     }
 }

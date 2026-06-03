@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.SubscriberDtos;
-using OnlineEdu.WebUI.DTOS.SubscriberDtos;
+using OnlineEdu.DTO.DTOS.SubscriberDtos;
+using OnlineEdu.DTO.DTOS.SubscriberDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers

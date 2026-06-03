@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineEdu.DataAccess.Context;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.WebUI.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOS.UserDtos;
 
 namespace OnlineEdu.WebUI.Services.UserServices
 {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using OnlineEdu.Business.Abstract;
 using OnlineEdu.DTO.DTOS.AboutDtos;
 using OnlineEdu.DTO.DTOS.CourseCategory;
@@ -34,7 +35,9 @@ namespace OnlineEdu.API.Controllers
             var value = await _courseCategoryService.TGetByIdAsync(id);
             if (value == null)
                 return NotFound();
-            return Ok(value);
+
+            var mapperValues = _mapper.Map<ResultCourseCategoryDto>(value);
+            return Ok(mapperValues);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -75,7 +78,9 @@ namespace OnlineEdu.API.Controllers
         public async Task<IActionResult> GetActiveCategories()
         {
             var values = await _courseCategoryService.TGetFilteredListAsync(x => x.IsActive == true);
-            return Ok(values);
+
+            var mapperValues = _mapper.Map<List<ResultCourseCategoryDto>>(values);
+            return Ok(mapperValues);
         }
         [HttpGet("GetCourseCategoryCount")]
         public async Task<IActionResult> GetCourseCategoryCount()

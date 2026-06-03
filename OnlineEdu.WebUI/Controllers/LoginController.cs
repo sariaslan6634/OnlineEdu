@@ -1,6 +1,6 @@
 ﻿using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.WebUI.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOS.UserDtos;
 using OnlineEdu.WebUI.Services.UserServices;
 
 namespace OnlineEdu.WebUI.Controllers

@@ -20,8 +20,6 @@ namespace OnlineEdu.API.Controllers
             _mapper = mapper;
         }
 
-
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {

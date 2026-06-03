@@ -14,14 +14,16 @@ namespace OnlineEdu.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var results = await _blogCategoryService.TGetCategoriesWithBlogs();
-            return Ok(results);
+            var values = await _blogCategoryService.TGetCategoriesWithBlogs();
+            var categories = _mapper.Map<List<ResultBlogCategoryDto>>(values);
+            return Ok(categories);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _blogCategoryService.TGetByIdAsync(id);
-            return Ok(result);
+            var category = _mapper.Map<ResultBlogCategoryDto>(result);
+            return Ok(category);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBlogCategoryDto dto)
