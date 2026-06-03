@@ -11,13 +11,12 @@ namespace OnlineEdu.DataAccess.Repositories
     public class GenericRepository<T> : IRepository<T> where T : class
     {
         protected readonly OnlineEduContext _context;
-
+        private DbSet<T> _table { get => _context.Set<T>(); }
         public GenericRepository(OnlineEduContext context)
         {
             _context = context;
         }
 
-        private DbSet<T> _table { get => _context.Set<T>(); }
         public async Task<int> CountAsync()
         {
             return await _table.CountAsync();

@@ -14,6 +14,6 @@ namespace OnlineEdu.Entity.Entities
         public string Icon { get; set; }
 
         public int TeacherId { get; set; }
-        public AppUser Teacher { get; set; }
+        public virtual AppUser Teacher { get; set; }
     }
 }

@@ -259,7 +259,7 @@
        asp-controller="CourseRegister"
        asp-area="Student"
        class="btn-add">
-        <i class="bi bi-plus-lg"></i> Yeni Kurs ekle
+        <i class="bi bi-plus-lg"></i> Yeni Kursa Kayıt Ol
     </a>
 </div>
 
@@ -271,7 +271,7 @@
                 <th style="width:44px;">#</th>
                 <th>Resim</th>
                 <th>Kurs Adı</th>
-                <th>Fiyat</th>
+                <th>Eğitmen Adı</th>
                 <th>Kategori</th>
                 <th style="width:150px; text-align:right;">İşlemler</th>
             </tr>
@@ -310,22 +310,20 @@
                             <div class="desc-cell">@item.Course.Name</div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Course.Price TL</div>
+                            <div class="desc-cell">@item.AppUser.FirstName @item.AppUser.LastName</div>
                         </td>
                         <td>
                             <div class="desc-cell">@item.Course.Category.Name</div>
                         </td>
                         <td>
                             <div class="actions">
-                                <button onclick="deleteCourseRegister(@item.CourseId)" class="btn-del">
-                                    <i class="bi bi-trash3"></i> Sil
-                                </button>
-                                <a asp-action="UpdateCourseRegister"
+                                
+                                <a asp-action="CourseVideos"
                                    asp-controller="CourseRegister"
                                    asp-area="Student"
                                    asp-route-id="@item.CourseId"
                                    class="btn-edit">
-                                    <i class="bi bi-pencil"></i> Güncelle
+                                    <i class="bi bi-pencil"></i> Kurs Videoları
                                 </a>
                             </div>
                         </td>
@@ -335,22 +333,3 @@
         </tbody>
     </table>
 </div>
-
-<script>
-    function deleteCourseRegister(id) {
-        Swal.fire({
-            title: 'Silmek istediğinize emin misiniz?',
-            text: 'Bu işlemi geri alamazsınız.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Evet, sil',
-            cancelButtonText: 'İptal',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d'
-        }).then((result) => {
-            if (result.isConfirmed) {
-               window.location.href ="/Student/CourseRegister/DeleteCourseRegister/" + id;
-            }
-        });
-    }
-</script>

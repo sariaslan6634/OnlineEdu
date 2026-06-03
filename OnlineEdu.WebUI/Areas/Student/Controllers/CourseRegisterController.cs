@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using OnlineEdu.DTO.DTOS.CourseVideoDtos;
 using OnlineEdu.Entity.Entities;
 using OnlineEdu.WebUI.DTOS.Course;
 using OnlineEdu.WebUI.DTOS.CourseRegisterDtos;
@@ -54,6 +55,13 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
                 return RedirectToAction("Index");
             }
             return View(dto);
+        }
+
+        public async Task<IActionResult> CourseVideos(int id)
+        {
+            var values = await _client.GetFromJsonAsync<List<ResultCourseVideoDto>>("courseVideos/GetCourseVideosByCourseId/" + id);
+            ViewBag.courseName = values.Select(x=>x.Course.Name).FirstOrDefault();
+            return View(values);
         }
     }
 }

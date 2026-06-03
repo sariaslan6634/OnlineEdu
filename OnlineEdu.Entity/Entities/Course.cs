@@ -15,13 +15,16 @@ namespace OnlineEdu.Entity.Entities
 
         //category table injection
         public int CourseCategoryId { get; set; }
-        public CourseCategory Category { get; set; }
+        public virtual CourseCategory Category { get; set; }
 
         //Öğretmen ekleme
         public int? AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
 
         //kurs kayıt tablosu
-        public List<CourseRegister> CourseRegister { get; set; }
+        public virtual List<CourseRegister> CourseRegister { get; set; }
+
+        //Video kayıt tablosu
+        public virtual List<CourseVideo> CourseVideos { get; set; }
     }
 }

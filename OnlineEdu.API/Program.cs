@@ -13,22 +13,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddAutoMapper(cfg => 
-{
-    cfg.AddProfile<AboutMapping>();
-    cfg.AddProfile<BannerMapping>();
-    cfg.AddProfile<BlogCategoryMapping>();
-    cfg.AddProfile<BlogMapping>();
-    cfg.AddProfile<ContactMapping>();
-    cfg.AddProfile<CourseCategoryMapping>();
-    cfg.AddProfile<CourseMapping>();
-    cfg.AddProfile<MessageMapping>();
-    cfg.AddProfile<SocialMediaMapping>();
-    cfg.AddProfile<SubscriberMapping>();
-    cfg.AddProfile<TeacherSocialMediaMapping>();
-    cfg.AddProfile<TestimonialMapping>();
-    cfg.AddProfile<CourseRegisterMapping>();
-});
+builder.Services.AddAutoMapper(typeof(IAssemblyMarker).Assembly);
 
 
 //Extensions klosorundekiler burada!!
@@ -37,6 +22,7 @@ builder.Services.AddServiceExtensions();
 builder.Services.AddDbContext<OnlineEduContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
+    options.UseLazyLoadingProxies();
  });
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
