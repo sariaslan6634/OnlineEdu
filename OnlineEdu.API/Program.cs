@@ -1,13 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineEdu.API.Extensions;
 using OnlineEdu.API.Mapping;
-using OnlineEdu.Business.Abstract;
-using OnlineEdu.Business.Concrete;
-using OnlineEdu.DataAccess.Abstract;
-using OnlineEdu.DataAccess.concrete;
 using OnlineEdu.DataAccess.Context;
-using OnlineEdu.DataAccess.Repositories;
-using System.Reflection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +11,7 @@ builder.Services.AddAutoMapper(typeof(IAssemblyMarker).Assembly);
 
 
 //Extensions klosorundekiler burada!!
-builder.Services.AddServiceExtensions();
+builder.Services.AddServiceExtensions(builder.Configuration);
 
 builder.Services.AddDbContext<OnlineEduContext>(options => 
 {
