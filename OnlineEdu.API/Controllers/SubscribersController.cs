@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineEdu.Business.Abstract;
@@ -7,6 +8,8 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class SubscribersController : ControllerBase
@@ -32,6 +35,7 @@ namespace OnlineEdu.API.Controllers
             var value = await _subscriberService.TGetByIdAsync(id);
             return Ok(value);
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Subscribe(CreateSubscriberDto dto)
         {
@@ -46,13 +50,6 @@ namespace OnlineEdu.API.Controllers
             await _subscriberService.TCreateAsync(value);
             return Ok("Abone olma işlemi başarılı!");
         }
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CreateSubscriberDto dto)
-        //{
-        //    var value = _mapper.Map<Subscriber>(dto);
-        //    await _subscriberService.TCreateAsync(value);
-        //    return Ok("Takipciler alanı eklendi!");
-        //}
         [HttpPut]
         public async Task<IActionResult> Update(UpdateSubscriberDto dto)
         {

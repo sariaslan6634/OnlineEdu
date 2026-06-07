@@ -42,32 +42,32 @@
 
                                 <div class="form-group first">
                                     <label for="FirstName">Ad</label>
-                                    <input asp-for="FirstName" type="text" class="form-control">
+                                    <input asp-for="FirstName" type="text" class="form-control" required>
 
                                 </div>
 
                                 <div class="form-group first">
                                     <label for="LastName">Soyad Adı</label>
-                                    <input asp-for="LastName" type="text" class="form-control">
+                                    <input asp-for="LastName" type="text" class="form-control" required>
 
                                 </div>
                                 <div class="form-group first">
                                     <label for="Email">Email</label>
-                                    <input asp-for="Email" type="email" class="form-control">
+                                    <input asp-for="Email" type="email" class="form-control" required>
 
                                 </div>
                                 <div class="form-group first">
                                     <label for="username">Kullanıcı Adı</label>
-                                    <input asp-for="UserName" type="text" class="form-control">
+                                    <input asp-for="UserName" type="text" class="form-control" required>
 
                                 </div>
                                 <div class="form-group last mb-4">
                                     <label for="password">Şifre</label>
-                                    <input asp-for ="Password" type="password" class="form-control">
+                                    <input asp-for="Password" type="password" class="form-control" required>
                                 </div>
                                 <div class="form-group last mb-4">
                                     <label for="password">Şifreyi tekrar girin</label>
-                                    <input asp-for="ConfirmPassword" type="password" class="form-control">
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" required>
                                 </div>
                                 <p style="color:red">
                                     @Html.ValidationSummary()

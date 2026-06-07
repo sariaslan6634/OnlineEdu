@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -8,10 +9,13 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+
+    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class BlogsController(IMapper _mapper, IBlogService _blogService) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
@@ -19,6 +23,7 @@ namespace OnlineEdu.API.Controllers
             var blogs = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(blogs);
         }
+        [AllowAnonymous]
         [HttpGet("GetLast4Blogs")]
         public async Task<IActionResult> GetLast4Blogs()
         {
@@ -33,7 +38,7 @@ namespace OnlineEdu.API.Controllers
             var blogs = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(blogs);
         }
-
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -70,12 +75,14 @@ namespace OnlineEdu.API.Controllers
             var mappedValues = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(mappedValues);
         }
+        [AllowAnonymous]
         [HttpGet("GetBlogCount")]
         public async Task<IActionResult> GetBlogCount()
         {
             var blogCount = await _blogService.TCountAsync();
             return Ok(blogCount);
         }
+        [AllowAnonymous]
         [HttpGet("GetBlogsByCategoryId/{id}")]
         public async Task<IActionResult> GetBlogsByCategoryId(int id)
         {

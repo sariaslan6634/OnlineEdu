@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class SocialMediasController : ControllerBase
@@ -21,6 +24,7 @@ namespace OnlineEdu.API.Controllers
             _socialMediaService = socialMediaService;
             _mapper = mapper;
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
         {

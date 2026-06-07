@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace OnlineEdu.WebUI.Validations
+namespace OnlineEdu.Business.Validators
 {
-    public class CustemErrorDescriber :IdentityErrorDescriber
+    public class CustomErrorDescriber : IdentityErrorDescriber
     {
         public override IdentityError PasswordRequiresDigit()
         {
@@ -47,4 +52,5 @@ namespace OnlineEdu.WebUI.Validations
             };
         }
     }
+
 }

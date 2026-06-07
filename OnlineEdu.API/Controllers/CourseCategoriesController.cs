@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -9,6 +10,8 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+
+    [Authorize(Roles = "Admin, Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseCategoriesController : ControllerBase
@@ -21,7 +24,7 @@ namespace OnlineEdu.API.Controllers
             _mapper = mapper;
             _courseCategoryService = courseCategoryService;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -73,7 +76,7 @@ namespace OnlineEdu.API.Controllers
             await _courseCategoryService.TDontShowOnHome(id);
             return Ok("Ana sayfada gösterilmiyor.");
         }
-
+        [AllowAnonymous]
         [HttpGet("GetActiveCategories")]
         public async Task<IActionResult> GetActiveCategories()
         {
@@ -82,6 +85,7 @@ namespace OnlineEdu.API.Controllers
             var mapperValues = _mapper.Map<List<ResultCourseCategoryDto>>(values);
             return Ok(mapperValues);
         }
+        [AllowAnonymous]
         [HttpGet("GetCourseCategoryCount")]
         public async Task<IActionResult> GetCourseCategoryCount()
         {

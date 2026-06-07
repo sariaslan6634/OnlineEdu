@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -9,6 +10,8 @@ using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
 {
+
+    [Authorize(Roles = "Admin,Teacher,Student")]
     [Route("api/[controller]")]
     [ApiController]
     public class CoursesController : ControllerBase
@@ -21,7 +24,7 @@ namespace OnlineEdu.API.Controllers
             _courseService = courseService;
             _mapper = mapper;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -29,6 +32,7 @@ namespace OnlineEdu.API.Controllers
             var courses = _mapper.Map<List<ResultCourseDto>>(values);
             return Ok(courses);
         }
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -72,6 +76,7 @@ namespace OnlineEdu.API.Controllers
             await _courseService.TDontShowOnHome(id);
             return Ok("Ana sayfada gösterilmiyor.");
         }
+        [AllowAnonymous]
         [HttpGet("GetActiveCourses")]
         public async Task<IActionResult> GetActiveCourses()
         {
@@ -87,13 +92,14 @@ namespace OnlineEdu.API.Controllers
             var mappedValues = _mapper.Map<List<ResultCourseDto>>(values);
             return Ok(mappedValues);
         }
+        [AllowAnonymous]
         [HttpGet("GetCourseCount")]
         public async Task<IActionResult> GetCourseCount()
         {
             var courseCount = await _courseService.TCountAsync();
             return Ok(courseCount);
         }
-
+        [AllowAnonymous]
         [HttpGet("GetCoursesByCategoryId/{id}")]
         public async Task<IActionResult> GetCoursesByCategoryId(int id)
         {
