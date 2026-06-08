@@ -157,19 +157,19 @@
 
         <div class="field">
 
-            <label asp-for="Image">Resim URL</label>
+            <label asp-for="ImageUrl">Resim URL</label>
 
             <input type="text"
-                   asp-for="Image"
+                   asp-for="ImageUrl"
                    class="form-control"
                    placeholder="https://example.com/banner.jpg"
                    oninput="updateBannerPreview(this.value)" />
 
             <div class="banner-preview" id="bannerPreview">
 
-                @if (!string.IsNullOrEmpty(Model.Image))
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
-                    <img src="@Model.Image"
+                    <img src="@Model.ImageUrl"
                          style="width:100%; height:220px; object-fit:cover; border-radius:14px;"
                          onerror="this.parentElement.innerHTML='<i class=&quot;bi bi-image&quot;></i><span>Görsel yüklenemedi</span>'" />
                 }

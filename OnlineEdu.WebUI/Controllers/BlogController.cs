@@ -1,15 +1,17 @@
-﻿using Humanizer;
-using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DataAccess.Abstract;
-using OnlineEdu.DTO.DTOS.BlogDtos;
-using OnlineEdu.DTO.DTOS.SubscriberDtos;
-using OnlineEdu.WebUI.Helpers;
+﻿using Microsoft.AspNetCore.Mvc;
+using OnlineEdu.WebUI.DTOs.BlogDtos;
+using OnlineEdu.WebUI.DTOs.SubscriberDtos;
 
 namespace OnlineEdu.WebUI.Controllers
 {
     public class BlogController : Controller
     {
-        HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public BlogController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
         public IActionResult Index()
         {
             return View();

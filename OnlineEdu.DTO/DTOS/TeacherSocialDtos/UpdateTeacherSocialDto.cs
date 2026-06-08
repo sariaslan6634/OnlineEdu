@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineEdu.DTO.DTOS.TeacherSocialDtos
+namespace OnlineEdu.DTO.DTOs.TeacherSocialDtos
 {
     public class UpdateTeacherSocialDto
     {
@@ -13,7 +13,7 @@ namespace OnlineEdu.DTO.DTOS.TeacherSocialDtos
         public string Url { get; set; }
         public string SocialMediaName { get; set; }
         public string Icon { get; set; }
-
         public int TeacherId { get; set; }
+      
     }
 }

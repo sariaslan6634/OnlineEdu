@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using OnlineEdu.DTO.DTOS.Course;
-using OnlineEdu.DTO.DTOS.CourseCategory;
+using OnlineEdu.DTO.DTOs.CourseCategoryDtos;
+using OnlineEdu.DTO.DTOs.CourseDtos;
 using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Mapping

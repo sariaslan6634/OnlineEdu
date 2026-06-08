@@ -1,11 +1,12 @@
-﻿using OnlineEdu.DTO.DTOS.BlogCategoryDtos;
-using OnlineEdu.DTO.DTOS.UserDtos;
+﻿using OnlineEdu.DTO.DTOs.BlogCategoryDtos;
 using OnlineEdu.Entity.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace OnlineEdu.DTO.DTOS.BlogDtos
+namespace OnlineEdu.DTO.DTOs.BlogDtos
 {
     public class UpdateBlogDto
     {
@@ -14,7 +15,11 @@ namespace OnlineEdu.DTO.DTOS.BlogDtos
         public string Content { get; set; }
         public string ImageUrl { get; set; }
         public DateTime BlogDate { get; set; }
+
         public int BlogCategoryId { get; set; }
-        public int? WriterId { get; set; }
+
+        public int WriterId { get; set; }
+
+
     }
 }

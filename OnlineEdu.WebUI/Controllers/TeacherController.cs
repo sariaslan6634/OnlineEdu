@@ -7,7 +7,7 @@ namespace OnlineEdu.WebUI.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var values = await _userService.GetAllTeacherAsync();
+            var values = await _userService.GetAllTeachersAsync();
             return View(values);
         }
     }

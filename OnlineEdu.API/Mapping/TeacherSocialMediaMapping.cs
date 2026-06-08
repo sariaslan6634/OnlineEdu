@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
+using OnlineEdu.DTO.DTOs.TeacherSocialDtos;
 using OnlineEdu.Entity.Entities;
-using OnlineEdu.DTO.DTOS.AboutDtos;
-using OnlineEdu.Entity.Entities;
-using OnlineEdu.DTO.DTOS.TeacherSocialDtos;
 
 namespace OnlineEdu.API.Mapping
 {

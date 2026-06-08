@@ -1,24 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OnlineEdu.DTO.DTOS.CourseVideoDtos;
-using OnlineEdu.Entity.Entities;
-using OnlineEdu.DTO.DTOS.Course;
-using OnlineEdu.DTO.DTOS.CourseRegisterDtos;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.CourseDtos;
+using OnlineEdu.WebUI.DTOs.CourseRegisterDtos;
+using OnlineEdu.WebUI.DTOs.CourseVideoDtos;
+using OnlineEdu.WebUI.Services.TokenServices;
 
 namespace OnlineEdu.WebUI.Areas.Student.Controllers
 {
     [Area("Student")]
     [Authorize(Roles = "Student")]
-    public class CourseRegisterController(UserManager<AppUser> _userManager) : Controller
+    public class CourseRegisterController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+        private readonly ITokenService _tokenService;
+
+        public CourseRegisterController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
+
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var values = await _client.GetFromJsonAsync<List<ResultCourseRegisterDto>>("courseRegisters/GetMyCourses/" + user.Id);
+            var userId = _tokenService.GetUserId;
+            var values = await _client.GetFromJsonAsync<List<ResultCourseRegisterDto>>("courseRegisters/GetMyCourses/" + userId);
             return View(values);
         }
         [HttpGet]
@@ -28,7 +33,7 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
             List<SelectListItem> courses = (from x in courseList
                                select new SelectListItem
                                {
-                                   Text = x.Name,
+                                   Text = x.CourseName,
                                    Value = x.CourseId.ToString()
                                }).ToList();
             ViewBag.courses = courses;
@@ -41,13 +46,13 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
             List<SelectListItem> courses = (from x in courseList
                                             select new SelectListItem
                                             {
-                                                Text = x.Name,
+                                                Text = x.CourseName,
                                                 Value = x.CourseId.ToString()
                                             }).ToList();
             ViewBag.courses = courses;
 
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            dto.AppUserId = user.Id;
+            var userId = _tokenService.GetUserId;
+            dto.AppUserId = userId;
 
             var result = await _client.PostAsJsonAsync("courseRegisters", dto);
             if (result.IsSuccessStatusCode)
@@ -60,7 +65,7 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
         public async Task<IActionResult> CourseVideos(int id)
         {
             var values = await _client.GetFromJsonAsync<List<ResultCourseVideoDto>>("courseVideos/GetCourseVideosByCourseId/" + id);
-            ViewBag.courseName = values.Select(x=>x.Course.Name).FirstOrDefault();
+            ViewBag.courseName = values.Select(x=>x.Course.CourseName).FirstOrDefault();
             return View(values);
         }
     }

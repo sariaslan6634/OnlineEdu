@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OnlineEdu.Entity.Entities;
-using OnlineEdu.DTO.DTOS.BlogCategoryDtos;
-using OnlineEdu.DTO.DTOS.BlogDtos;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.BlogCategoryDtos;
+using OnlineEdu.WebUI.DTOs.BlogDtos;
+using OnlineEdu.WebUI.Services.TokenServices;
 
 namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
 {
     [Area("Teacher")]
     [Authorize(Roles = "Teacher")]
-    public class MyBlogController(UserManager<AppUser> _userManager) : Controller
+    public class MyBlogController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+        private readonly ITokenService _tokenService;
+
+        public MyBlogController(IHttpClientFactory httpClientFactory, ITokenService tokenService)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+            _tokenService = tokenService;
+        }
 
         public async Task BlogCategoryDropDownAsync()
         {
@@ -29,9 +34,9 @@ namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userId = _tokenService.GetUserId;
 
-            var values = await _client.GetFromJsonAsync<List<ResultBlogDto>>("blogs/GetBlogByWriterID/" + user.Id);
+            var values = await _client.GetFromJsonAsync<List<ResultBlogDto>>("blogs/GetBlogByWriterID/" + userId);
             return View(values);
         }
         public async Task<IActionResult> DeleteMyBlog(int id)
@@ -47,8 +52,8 @@ namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBlog(CreateBlogDto createBlogDto)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            createBlogDto.WriterId = user.Id;
+            var userId = _tokenService.GetUserId;
+            createBlogDto.WriterId = userId;
 
             await _client.PostAsJsonAsync("blogs", createBlogDto);
             return RedirectToAction("Index");

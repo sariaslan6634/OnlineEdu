@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using OnlineEdu.DTO.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOs.RoleDtos;
+using OnlineEdu.DTO.DTOs.UserDtos;
 using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Mapping
@@ -8,8 +9,11 @@ namespace OnlineEdu.API.Mapping
     {
         public UserMapping()
         {
-            CreateMap<UserRegisterDto, AppUser>().ReverseMap();
-            CreateMap<UserLoginDto, AppUser>().ReverseMap();
+            CreateMap<AppUser, RegisterDto>().ReverseMap();
+
+            CreateMap<AppRole, CreateRoleDto>().ReverseMap();
+            CreateMap<AppRole, UpdateRoleDto>().ReverseMap();
+            CreateMap<AppUser, ResultUserDto>().ReverseMap();
         }
     }
 }

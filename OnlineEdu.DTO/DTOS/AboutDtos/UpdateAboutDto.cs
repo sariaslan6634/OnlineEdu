@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace OnlineEdu.DTO.DTOS.AboutDtos
+namespace OnlineEdu.DTO.DTOs.AboutDtos
 {
     public class UpdateAboutDto
     {
-        [JsonPropertyName("aboutId")]
         public int AboutId { get; set; }
         public string Description { get; set; }
         public string ImageUrl1 { get; set; }

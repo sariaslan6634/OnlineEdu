@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.SocialMediaDto;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.SocialMediaDtos;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
@@ -9,7 +8,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class SocialMediaController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public SocialMediaController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
         public async Task<IActionResult> Index()
         {
             var values = await _client.GetFromJsonAsync<List<ResultSocialMediaDto>>("SocialMedias");

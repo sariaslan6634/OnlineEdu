@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.TestimonialDtos;
+using OnlineEdu.WebUI.DTOs.TestimonialDtos;
 using OnlineEdu.WebUI.Helpers;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
@@ -9,7 +9,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Authorize(Roles ="Admin")]
     public class TestimonialController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public TestimonialController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
 
         public async Task<IActionResult> Index()
         {

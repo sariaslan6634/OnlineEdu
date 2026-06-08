@@ -308,19 +308,19 @@
                             </div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Name</div>
+                            <div class="desc-cell">@item.CourseName</div>
                         </td>
                         <td>
                             <div class="desc-cell">@item.Price TL</div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Category.Name</div>
+                            <div class="desc-cell">@item.CourseCategory.Name</div>
                         </td>
                         <td>
                             <div class="desc-cell">@item.AppUser.FirstName @item.AppUser.LastName</div>
                         </td>
                         <td>
-                            @if (item.IsActive)
+                            @if (item.IsShown)
                             {
                                 <a href="@Url.Action("DontShowOnHome", "Course", new { area = "Admin", id = item.CourseId })">
                                     <span class="badge-aktif">

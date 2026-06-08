@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.AboutDtos;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.AboutDtos;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
@@ -9,7 +8,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AboutController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public AboutController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
 
         public async Task<IActionResult> Index()
         {

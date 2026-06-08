@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using OnlineEdu.Business.Abstract;
-using OnlineEdu.DTO.DTOS.AboutDtos;
-using OnlineEdu.DTO.DTOS.CourseCategory;
+using OnlineEdu.DTO.DTOs.CourseCategoryDtos;
 using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers

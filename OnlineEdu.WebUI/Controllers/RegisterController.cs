@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.UserDtos;
-using OnlineEdu.WebUI.Helpers;
-using OnlineEdu.WebUI.Services.UserServices;
+using OnlineEdu.WebUI.DTOs.UserDtos;
 
 namespace OnlineEdu.WebUI.Controllers
 {
     public class RegisterController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public RegisterController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
         public IActionResult SignUp()
         {
             return View();

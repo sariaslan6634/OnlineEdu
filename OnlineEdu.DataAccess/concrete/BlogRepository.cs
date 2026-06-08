@@ -50,13 +50,13 @@ namespace OnlineEdu.DataAccess.concrete
                 FirstOrDefaultAsync(x => x.BlogId == id);
         }
 
-        public List<Blog> GetLast4BlogsWithCategories()
+        public async Task<List<Blog>> GetLast4BlogsWithCategories()
         {
-            return _educontext.Blogs
+            return await _educontext.Blogs
                 .Include(x => x.BlogCategory)
                 .OrderByDescending(x => x.BlogId)
                 .Take(4)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

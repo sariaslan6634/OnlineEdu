@@ -1,11 +1,8 @@
-﻿using AspNetCoreGeneratedDocument;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.LoginDtos;
-using OnlineEdu.DTO.DTOS.UserDtos;
-using OnlineEdu.WebUI.Helpers;
-using OnlineEdu.WebUI.Services.UserServices;
+using OnlineEdu.WebUI.DTOs.LoginDtos;
+using OnlineEdu.WebUI.DTOs.UserDtos;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -13,7 +10,12 @@ namespace OnlineEdu.WebUI.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public LoginController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
         public IActionResult SignIn()
         {
             return View();

@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.BlogDtos;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.BlogDtos;
 
 namespace OnlineEdu.WebUI.ViewComponents.Blog
 {
     public class _BlogAllBlogs :ViewComponent
     {
-        HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public _BlogAllBlogs(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var blogs = await _client.GetFromJsonAsync<List<ResultBlogDto>>("blogs");            

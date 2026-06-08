@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using OnlineEdu.Business.Abstract;
-using OnlineEdu.DTO.DTOS.BlogDtos;
+using OnlineEdu.DTO.DTOs.BlogDtos;
 using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Controllers
@@ -27,14 +25,7 @@ namespace OnlineEdu.API.Controllers
         [HttpGet("GetLast4Blogs")]
         public async Task<IActionResult> GetLast4Blogs()
         {
-            var values = _blogService.TGetLast4BlogsWithCategories();
-            var blogs = _mapper.Map<List<ResultBlogDto>>(values);
-            return Ok(blogs);
-        }
-        [HttpGet("BlogByCategory")]
-        public async Task<IActionResult> BlogByCategory(string categoryName)
-        {
-            var values = _blogService.TGetBlogsByCategory(categoryName);
+            var values =await _blogService.TGetLast4BlogsWithCategories();
             var blogs = _mapper.Map<List<ResultBlogDto>>(values);
             return Ok(blogs);
         }

@@ -19,6 +19,8 @@ builder.Services.AddAutoMapper(typeof(IAssemblyMarker).Assembly);
 //Extensions klosorundekiler burada!!
 builder.Services.AddServiceExtensions(builder.Configuration);
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddDbContext<OnlineEduContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));

@@ -34,6 +34,8 @@ namespace OnlineEdu.API.Extensions
             services.AddScoped<ISubscriberRepository, SubscriberRepository>();
             services.AddScoped<ISubscriberService, SubscriberManager>();
 
+            services.AddScoped<IUserService, UserService>();
+
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 

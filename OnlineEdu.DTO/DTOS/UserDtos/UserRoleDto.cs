@@ -1,4 +1,4 @@
-﻿namespace OnlineEdu.DTO.DTOS.UserDtos
+﻿namespace OnlineEdu.DTO.DTOs.UserDtos
 {
     public class UserRoleDto
     {

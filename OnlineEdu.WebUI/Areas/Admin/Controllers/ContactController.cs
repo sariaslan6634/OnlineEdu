@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.ContactDtos;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.ContactDtos;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 {
@@ -9,7 +8,11 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ContactController : Controller
     {
-        private readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+        public ContactController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
 
         public async Task<IActionResult> Index()
         {

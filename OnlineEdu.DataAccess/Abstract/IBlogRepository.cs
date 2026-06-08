@@ -10,7 +10,7 @@ namespace OnlineEdu.DataAccess.Abstract
         List<Blog> GetBlogsWithCategories();
         Task<List<Blog>> GetBlogsByCategoryId(int id);
         Task<Blog> GetBlogsWithCategory(int id);
-        List<Blog> GetLast4BlogsWithCategories();
+        Task<List<Blog>> GetLast4BlogsWithCategories();
         List<Blog> GetBlogsByCategory(string categoryName);
         Task<List<Blog>> GetBlogsByWriterIdAsync(int id);
 

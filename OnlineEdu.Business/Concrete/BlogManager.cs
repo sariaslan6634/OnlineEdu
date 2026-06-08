@@ -39,9 +39,9 @@ namespace OnlineEdu.Business.Concrete
             return await _blogRepository.GetBlogsWithCategory(id);
         }
 
-        public List<Blog> TGetLast4BlogsWithCategories()
+        public async Task<List<Blog>> TGetLast4BlogsWithCategories()
         {
-            return _blogRepository.GetLast4BlogsWithCategories();
+            return await _blogRepository.GetLast4BlogsWithCategories();
         }
     }
 }

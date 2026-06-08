@@ -1,4 +1,5 @@
-﻿@model List<ResultCourseRegisterDto>
+﻿
+@model List<ResultCourseRegisterDto>
 
 @{
     ViewData["Title"] = "Kurs";
@@ -307,13 +308,13 @@
                             </div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Course.Name</div>
+                            <div class="desc-cell">@item.Course.CourseName</div>
                         </td>
                         <td>
                             <div class="desc-cell">@item.AppUser.FirstName @item.AppUser.LastName</div>
                         </td>
                         <td>
-                            <div class="desc-cell">@item.Course.Category.Name</div>
+                            <div class="desc-cell">@item.Course.CourseCategory.Name</div>
                         </td>
                         <td>
                             <div class="actions">

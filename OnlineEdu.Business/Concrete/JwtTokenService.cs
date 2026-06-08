@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OnlineEdu.Business.Abstract;
 using OnlineEdu.Business.Configurations;
-using OnlineEdu.DTO.DTOS.LoginDtos;
+using OnlineEdu.DTO.DTOs.LoginDtos;
 using OnlineEdu.Entity.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

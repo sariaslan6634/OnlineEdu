@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OnlineEdu.DTO.DTOS.TestimonialDtos;
+using OnlineEdu.DTO.DTOs.TestimonialDtos;
 using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Mapping
@@ -9,7 +9,6 @@ namespace OnlineEdu.API.Mapping
         public TestimonialMapping()
         {
             CreateMap<CreateTestimonialDto, Testimonial>().ReverseMap();
-            CreateMap<ResultTestimonialDto, Testimonial>().ReverseMap();
             CreateMap<UpdateTestimonialDto, Testimonial>().ReverseMap();
         }
     }

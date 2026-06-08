@@ -1,4 +1,4 @@
-﻿@model List<ResultUserWithRolesDto>
+﻿@model List<UserViewModel>
 
 @{
     ViewData["Title"] = "Kullanıcı Listesi";
@@ -250,7 +250,7 @@
                     <tr>
                         <td class="num-cell">@count</td>
                         <td>
-                            <div class="desc-cell" title="@item.FirstName">@item.FirstName @item.LastName</div>
+                            <div class="desc-cell" title="@item.NameSurname">@item.NameSurname</div>
                         </td>
                         <td>
                             <div class="desc-cell" title="@item.UserName">@item.UserName</div>

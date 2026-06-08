@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineEdu.DTO.DTOS.ContactDtos;
-using OnlineEdu.DTO.DTOS.MessageDtos;
-using OnlineEdu.WebUI.Helpers;
+using OnlineEdu.WebUI.DTOs.ContactDtos;
+using OnlineEdu.WebUI.DTOs.MessageDtos;
 
 namespace OnlineEdu.WebUI.Controllers
 {
     public class ContactController : Controller
     {
-        public readonly HttpClient _client = HttpClientInstance.CreateClient();
+        private readonly HttpClient _client;
+
+        public ContactController(IHttpClientFactory httpClientFactory)
+        {
+            _client = httpClientFactory.CreateClient("EduClient");
+        }
         public async Task<IActionResult> IndexAsync()
         {
             var result = await _client.GetFromJsonAsync<List<ResultContactDto>>("contacts");

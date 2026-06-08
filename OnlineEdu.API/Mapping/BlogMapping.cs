@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using OnlineEdu.DTO.DTOS.BlogDtos;
-using OnlineEdu.DTO.DTOS.UserDtos;
+using OnlineEdu.DTO.DTOs.BlogDtos;
+using OnlineEdu.DTO.DTOs.UserDtos;
 using OnlineEdu.Entity.Entities;
 
 namespace OnlineEdu.API.Mapping

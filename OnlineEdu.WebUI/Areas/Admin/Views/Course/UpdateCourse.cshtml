@@ -182,8 +182,8 @@
                 <span>kurs Önizleme</span>
             </div>
 
-            <label asp-for="Name">Kurs ismi</label>
-            <input type="text" asp-for="Name" class="form-control" placeholder="kursun adını giriniz..." />
+            <label asp-for="CourseName">Kurs ismi</label>
+            <input type="text" asp-for="CourseName" class="form-control" placeholder="kursun adını giriniz..." />
 
             <label asp-for="Price">Fiyat</label>
             <input type="text" asp-for="Price" class="form-control" />
@@ -198,7 +198,7 @@
 
             <label>Durum</label>
             <div style="margin-top:6px;">
-                <input type="checkbox" asp-for="IsActive" id="isActive" style="display:none;" />
+                <input type="checkbox" asp-for="IsShown" id="isActive" style="display:none;" />
                 <label id="toggleLabel" class="toggle-aktif" onclick="toggleStatus()">
                     <span class="toggle-dot"></span>
                     <span id="toggleText">Aktif</span>
