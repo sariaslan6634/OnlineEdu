@@ -9,12 +9,13 @@ namespace OnlineEdu.DTO.DTOs.CourseDtos
 {
     public class CreateCourseDto
     {
-       
-        public string CourseName { get; set; }
+
+        public int CourseId { get; set; }
+        public string Name { get; set; }
         public string ImageUrl { get; set; }
-        public int CourseCategoryId { get; set; }      
+        public int CourseCategoryId { get; set; }
         public decimal Price { get; set; }
-        public bool IsShown { get; set; }
+        public bool IsActive { get; set; }
 
         public int AppUserId { get; set; }
     }

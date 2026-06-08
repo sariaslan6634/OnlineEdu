@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineEdu.WebUI.DTOs.BlogCategoryDtos;
 using OnlineEdu.WebUI.DTOs.BlogDtos;
-using OnlineEdu.WebUI.Helpers;
 using OnlineEdu.WebUI.Services.TokenServices;
 
 namespace OnlineEdu.WebUI.Areas.Admin.Controllers
@@ -18,11 +16,6 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         public BlogController(IHttpClientFactory httpClientFactory, ITokenService tokenService)
         {
             _client = httpClientFactory.CreateClient("EduClient");
-            _tokenService = tokenService;
-        }
-
-        public BlogController(ITokenService tokenService)
-        {
             _tokenService = tokenService;
         }
 

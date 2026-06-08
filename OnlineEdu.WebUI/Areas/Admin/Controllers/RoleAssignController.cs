@@ -32,7 +32,8 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignRole(List<AssignRoleDto> assignRoleList)
         {
-            var result = await _client.PostAsJsonAsync("rolesAssigns", assignRoleList);
+            var result = await _client.PostAsJsonAsync("roleAssigns", assignRoleList);
+                                                        
             if (!result.IsSuccessStatusCode)
                 return View(assignRoleList);
 

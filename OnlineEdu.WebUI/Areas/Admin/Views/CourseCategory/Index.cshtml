@@ -293,7 +293,7 @@
                             <div class="desc-cell" title="@item.Description">@item.Description</div>
                         </td>
                         <td>
-                            @if (item.IsShown)
+                            @if (item.IsActive)
                             {
                                 <a href="@Url.Action("DontShowOnHome", "CourseCategory", new { area = "Admin", id = item.CourseCategoryId })">
                                     <span class="badge-aktif">

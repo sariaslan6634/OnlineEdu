@@ -17,12 +17,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         public CourseController(IHttpClientFactory httpClientFactory, ITokenService tokenService)
         {
             _client = httpClientFactory.CreateClient("EduClient");
-
             _tokenService = tokenService;
-        }
-
-        public CourseController(ITokenService tokenService)
-        {
         }
 
         private async Task CourseCategoryDropDown()

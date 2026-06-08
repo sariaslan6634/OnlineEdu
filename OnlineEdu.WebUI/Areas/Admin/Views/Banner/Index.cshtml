@@ -244,10 +244,10 @@
                         <td>
                             <div class="banner-cell">
 
-                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                @if (!string.IsNullOrEmpty(item.Image))
                                 {
                                     <img class="banner-img"
-                                         src="@item.ImageUrl"
+                                         src="@item.Image"
                                          alt="Banner"
                                          onerror="this.outerHTML='<div class=img-placeholder><i class=bi bi-image></i></div>'" />
                                 }

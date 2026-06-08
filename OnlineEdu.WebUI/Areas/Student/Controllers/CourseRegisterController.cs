@@ -15,9 +15,10 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
         private readonly HttpClient _client;
         private readonly ITokenService _tokenService;
 
-        public CourseRegisterController(IHttpClientFactory httpClientFactory)
+        public CourseRegisterController(IHttpClientFactory httpClientFactory, ITokenService tokenService)
         {
             _client = httpClientFactory.CreateClient("EduClient");
+            _tokenService = tokenService;
         }
 
         public async Task<IActionResult> Index()
@@ -33,7 +34,7 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
             List<SelectListItem> courses = (from x in courseList
                                select new SelectListItem
                                {
-                                   Text = x.CourseName,
+                                   Text = x.Name,
                                    Value = x.CourseId.ToString()
                                }).ToList();
             ViewBag.courses = courses;
@@ -46,7 +47,7 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
             List<SelectListItem> courses = (from x in courseList
                                             select new SelectListItem
                                             {
-                                                Text = x.CourseName,
+                                                Text = x.Name,
                                                 Value = x.CourseId.ToString()
                                             }).ToList();
             ViewBag.courses = courses;
@@ -65,7 +66,7 @@ namespace OnlineEdu.WebUI.Areas.Student.Controllers
         public async Task<IActionResult> CourseVideos(int id)
         {
             var values = await _client.GetFromJsonAsync<List<ResultCourseVideoDto>>("courseVideos/GetCourseVideosByCourseId/" + id);
-            ViewBag.courseName = values.Select(x=>x.Course.CourseName).FirstOrDefault();
+            ViewBag.courseName = values.Select(x=>x.Course.Name).FirstOrDefault();
             return View(values);
         }
     }

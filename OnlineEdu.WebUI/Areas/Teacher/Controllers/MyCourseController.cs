@@ -20,11 +20,6 @@ namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
             _tokenService = tokenService;
         }
 
-
-        public MyCourseController(ITokenService tokenService)
-        {
-            _tokenService = tokenService;
-        }
         private async Task<List<SelectListItem>> GetCourseCategoriesAsync()
         {
             var categoryList = await _client.GetFromJsonAsync<List<ResultCourseCategoryDto>>("courseCategories");
@@ -85,7 +80,7 @@ namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
         {
             var values = await _client.GetFromJsonAsync<List<ResultCourseVideoDto>>("courseVideos/GetCourseVideosByCourseId/" + id);
             TempData["courseId"] = id;
-            ViewBag.courseName = values.Select(x=>x.Course.CourseName).FirstOrDefault();
+            ViewBag.courseName = values.Select(x=>x.Course.Name).FirstOrDefault();
 
             return View(values);
         }
@@ -94,7 +89,7 @@ namespace OnlineEdu.WebUI.Areas.Teacher.Controllers
         {
             var courseId = (int)TempData["courseId"];
             var course = await _client.GetFromJsonAsync<ResultCourseDto>("courses/" + courseId);
-            ViewBag.courseName = course.CourseName;
+            ViewBag.courseName = course.Name;
             ViewBag.courseId = course.CourseId;
             return View();
         }

@@ -15,11 +15,6 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
             _client = httpClientFactory.CreateClient("EduClient");
         }
 
-        public RoleController(HttpClient client)
-        {
-            _client = client;
-        }
-
         public async Task<IActionResult> Index()
         {
             var values = await _client.GetFromJsonAsync<List<ResultRoleDto>>("roles");

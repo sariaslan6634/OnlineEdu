@@ -22,7 +22,7 @@ namespace OnlineEdu.WebUI.Controllers
         {
             var values = await _client.GetFromJsonAsync<List<ResultCourseDto>>("courses/GetCoursesByCategoryId/" + id);
 
-            var categoryName = values.Select(x => x.CourseCategory.Name).FirstOrDefault();
+            var categoryName = values.Select(x => x.Category.Name).FirstOrDefault();
             ViewBag.categoryName = categoryName;
             return View(values);
         }
